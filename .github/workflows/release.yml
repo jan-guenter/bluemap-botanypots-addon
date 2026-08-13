@@ -1,0 +1,399 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Immutable v* tag to resume after a safe publication failure
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  packages: write
+  attestations: write
+  id-token: write
+
+env:
+  RELEASE_TAG: ${{ github.event.inputs.release_tag || github.ref_name }}
+
+concurrency:
+  # Every version updates the same artifact-root maven-metadata.xml.
+  group: release-maven-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.RELEASE_TAG }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify release identity
+        run: |
+          version="$(sed -n 's/^addon_version=//p' gradle.properties)"
+          test -n "${version}"
+          [[ "${version}" != *-SNAPSHOT ]]
+          [[ "${RELEASE_TAG}" =~ ^v[0-9A-Za-z][0-9A-Za-z.+-]*$ ]]
+          test "${RELEASE_TAG}" = "v${version}"
+          git fetch --force origin \
+            "refs/tags/${RELEASE_TAG}:refs/tags/${RELEASE_TAG}"
+          test "$(git cat-file -t "refs/tags/${RELEASE_TAG}")" = tag
+          test "$(git rev-parse 'HEAD^{commit}')" = \
+            "$(git rev-parse "refs/tags/${RELEASE_TAG}^{commit}")"
+          git fetch --no-tags origin main:refs/remotes/origin/main
+          git merge-base --is-ancestor HEAD refs/remotes/origin/main
+          echo "VERSION=${version}" >> "${GITHUB_ENV}"
+
+      - name: Check out exact BlueMap backport
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: jan-guenter/BlueMap
+          ref: 9be321df995a1103808621d529eb72773e719d4d
+          path: .ci/bluemap
+          submodules: recursive
+          persist-credentials: false
+
+      - name: Set up Java 21
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13'
+
+      - name: Set up Gradle 9.6.1
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          gradle-version: '9.6.1'
+
+      - name: Acquire exact ephemeral Botany Pots input
+        run: |
+          input_dir="${RUNNER_TEMP}/botanypots"
+          mkdir -p "${input_dir}"
+          curl --fail --location --retry 3 --retry-all-errors \
+            --output "${input_dir}/botanypots-neoforge-1.21.1-21.1.44.jar" \
+            "https://cdn.modrinth.com/data/U6BUTZ7K/versions/RjHfHgSn/botanypots-neoforge-1.21.1-21.1.44.jar"
+
+      - name: Build and verify release once
+        run: |
+          input_dir="${RUNNER_TEMP}/botanypots"
+          python3 gallery/generate.py --check
+          python3 -m json.tool provenance/upstreams.json >/dev/null
+          python3 -m json.tool \
+            src/main/resources/bluemap-botanypots/profiles/exact-artifacts.json \
+            >/dev/null
+          python3 -m json.tool \
+            src/main/resources/bluemap-botanypots/profiles/atmons-1.2.0/profile.json \
+            >/dev/null
+          (cd gallery && sha256sum --check SHA256SUMS)
+          python3 -m unittest discover -s tools/tests -p 'test_*.py'
+          gradle --no-daemon \
+            -PbluemapSourcePath=.ci/bluemap \
+            -PbotanyPotsJar="${input_dir}/botanypots-neoforge-1.21.1-21.1.44.jar" \
+            clean check build generatePomFileForAddonPublication \
+            generateMetadataFileForAddonPublication verifyPinnedArtifacts
+
+      - name: Prepare release bundle
+        run: |
+          mkdir release
+          cp "build/libs/bluemap-botanypots-addon-${VERSION}.jar" release/
+          cp "build/libs/bluemap-botanypots-addon-${VERSION}-sources.jar" release/
+          cp build/publications/addon/pom-default.xml \
+            "release/bluemap-botanypots-addon-${VERSION}.pom"
+          cp build/publications/addon/module.json \
+            "release/bluemap-botanypots-addon-${VERSION}.module.json"
+          cd release
+          sha256sum -- ./* > SHA256SUMS
+
+      - name: Inspect immutable Maven version
+        id: maven
+        env:
+          MAVEN_ACTOR: ${{ github.actor }}
+          MAVEN_TOKEN: ${{ github.token }}
+        run: |
+          cat > "${RUNNER_TEMP}/verify-maven.py" <<'PY'
+          import base64
+          import hashlib
+          import os
+          from pathlib import Path
+          import sys
+          import urllib.error
+          import urllib.request
+          import xml.etree.ElementTree as ET
+
+          version = os.environ["VERSION"]
+          actor = os.environ["MAVEN_ACTOR"]
+          token = os.environ["MAVEN_TOKEN"]
+          base = (
+              "https://maven.pkg.github.com/jan-guenter/"
+              "bluemap-botanypots-addon/io/github/jan-guenter/"
+              "bluemap-botanypots-addon"
+          )
+          version_base = f"{base}/{version}"
+          files = (
+              (
+                  Path(f"build/libs/bluemap-botanypots-addon-{version}.jar"),
+                  f"bluemap-botanypots-addon-{version}.jar",
+              ),
+              (
+                  Path(
+                      "build/libs/"
+                      f"bluemap-botanypots-addon-{version}-sources.jar"
+                  ),
+                  f"bluemap-botanypots-addon-{version}-sources.jar",
+              ),
+              (
+                  Path("build/publications/addon/pom-default.xml"),
+                  f"bluemap-botanypots-addon-{version}.pom",
+              ),
+              (
+                  Path("build/publications/addon/module.json"),
+                  f"bluemap-botanypots-addon-{version}.module",
+              ),
+          )
+          authorization = base64.b64encode(
+              f"{actor}:{token}".encode("utf-8")
+          ).decode("ascii")
+
+
+          def fetch(url):
+              request = urllib.request.Request(
+                  url,
+                  headers={"Authorization": f"Basic {authorization}"},
+              )
+              try:
+                  with urllib.request.urlopen(request) as response:
+                      return response.read()
+              except urllib.error.HTTPError as error:
+                  if error.code == 404:
+                      return None
+                  raise RuntimeError(
+                      f"GitHub Packages returned HTTP {error.code} for {url}"
+                  ) from error
+
+
+          def verify_sidecars(url, content, *, required):
+              for algorithm in ("sha1", "md5"):
+                  sidecar = fetch(f"{url}.{algorithm}")
+                  if sidecar is None:
+                      if required:
+                          raise RuntimeError(
+                              f"Missing {algorithm} sidecar for {url}"
+                          )
+                      continue
+                  if not required:
+                      raise RuntimeError(
+                          f"Orphaned {algorithm} sidecar for absent {url}"
+                      )
+                  expected = hashlib.new(algorithm, content).hexdigest()
+                  actual = sidecar.decode("ascii").strip().lower()
+                  if actual != expected:
+                      raise RuntimeError(
+                          f"Invalid {algorithm} sidecar for {url}"
+                      )
+
+
+          present = 0
+          missing = 0
+          for local_path, remote_name in files:
+              local = local_path.read_bytes()
+              remote_url = f"{version_base}/{remote_name}"
+              remote = fetch(remote_url)
+              if remote is None:
+                  verify_sidecars(remote_url, b"", required=False)
+                  missing += 1
+                  continue
+              if remote != local:
+                  raise RuntimeError(
+                      f"Published Maven bytes differ for {remote_name}"
+                  )
+              verify_sidecars(remote_url, remote, required=True)
+              present += 1
+
+          metadata_url = f"{base}/maven-metadata.xml"
+          metadata = fetch(metadata_url)
+          metadata_has_version = False
+          if metadata is not None:
+              verify_sidecars(metadata_url, metadata, required=True)
+              versions = [
+                  element.text
+                  for element in ET.fromstring(metadata).iter()
+                  if element.tag.rsplit("}", 1)[-1] == "version"
+              ]
+              count = versions.count(version)
+              if count > 1:
+                  raise RuntimeError("Duplicate version in Maven metadata")
+              metadata_has_version = count == 1
+          else:
+              verify_sidecars(metadata_url, b"", required=False)
+
+          state = sys.argv[1]
+          if present == len(files) and missing == 0 and metadata_has_version:
+              observed = "present"
+          elif present == 0 and missing == len(files) and not metadata_has_version:
+              observed = "absent"
+          else:
+              raise RuntimeError(
+                  "Immutable Maven version is partial or inconsistent"
+              )
+
+          if state == "inspect":
+              print(observed)
+          elif state == "present" and observed != "present":
+              raise RuntimeError("Maven publication is not complete")
+          elif state != "present":
+              raise RuntimeError(f"Unknown verification state: {state}")
+          PY
+
+          state="$(python3 "${RUNNER_TEMP}/verify-maven.py" inspect)"
+          case "${state}" in
+            absent)
+              echo 'publish=true' >> "${GITHUB_OUTPUT}"
+              ;;
+            present)
+              echo 'publish=false' >> "${GITHUB_OUTPUT}"
+              echo 'The complete immutable Maven version already exists and is exact.'
+              ;;
+            *)
+              echo "Unexpected Maven verification state: ${state}" >&2
+              exit 1
+              ;;
+          esac
+
+      - name: Create or refresh draft GitHub release
+        id: github_release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          release_kind=()
+          if [[ "${VERSION}" == *-* ]]; then
+            release_kind+=(--prerelease)
+          else
+            release_kind+=(--latest)
+          fi
+          if gh release view "${RELEASE_TAG}" >/dev/null 2>&1; then
+            is_draft="$(gh release view "${RELEASE_TAG}" \
+              --json isDraft --jq '.isDraft')"
+            if [[ "${is_draft}" == true ]]; then
+              gh release edit "${RELEASE_TAG}" \
+                --draft \
+                "${release_kind[@]}" \
+                --title "BlueMap Botany Pots Add-on ${VERSION}" \
+                --verify-tag
+              gh release upload "${RELEASE_TAG}" release/* --clobber
+              echo 'already_published=false' >> "${GITHUB_OUTPUT}"
+            else
+              echo 'already_published=true' >> "${GITHUB_OUTPUT}"
+              echo 'The GitHub release is already published; verifying it without mutation.'
+            fi
+          else
+            gh release create "${RELEASE_TAG}" release/* \
+              "${release_kind[@]}" \
+              --draft \
+              --generate-notes \
+              --title "BlueMap Botany Pots Add-on ${VERSION}" \
+              --verify-tag
+            echo 'already_published=false' >> "${GITHUB_OUTPUT}"
+          fi
+
+          expected=(
+            SHA256SUMS
+            "bluemap-botanypots-addon-${VERSION}-sources.jar"
+            "bluemap-botanypots-addon-${VERSION}.jar"
+            "bluemap-botanypots-addon-${VERSION}.module.json"
+            "bluemap-botanypots-addon-${VERSION}.pom"
+          )
+          mapfile -t actual < <(gh release view "${RELEASE_TAG}" \
+            --json assets --jq '.assets[].name' | LC_ALL=C sort)
+          diff -u \
+            <(printf '%s\n' "${expected[@]}" | LC_ALL=C sort) \
+            <(printf '%s\n' "${actual[@]}")
+          downloaded="${RUNNER_TEMP}/github-release-assets"
+          mkdir -p "${downloaded}"
+          gh release download "${RELEASE_TAG}" --dir "${downloaded}"
+          for asset in release/*; do
+            cmp "${asset}" "${downloaded}/$(basename "${asset}")"
+          done
+
+      - name: Attest release JARs
+        if: steps.github_release.outputs.already_published != 'true'
+        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4.1.1
+        with:
+          subject-path: release/*.jar
+
+      - name: Publish Maven package
+        if: steps.maven.outputs.publish == 'true'
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gradle --no-daemon \
+            -PbluemapSourcePath=.ci/bluemap \
+            publishAddonPublicationToGitHubPackagesRepository
+
+      - name: Verify published Maven bytes and sidecars
+        env:
+          MAVEN_ACTOR: ${{ github.actor }}
+          MAVEN_TOKEN: ${{ github.token }}
+        run: |
+          for attempt in {1..12}; do
+            if python3 "${RUNNER_TEMP}/verify-maven.py" present; then
+              exit 0
+            fi
+            if [[ "${attempt}" == 12 ]]; then
+              exit 1
+            fi
+            sleep 5
+          done
+
+      - name: Reverify and publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          expected=(
+            SHA256SUMS
+            "bluemap-botanypots-addon-${VERSION}-sources.jar"
+            "bluemap-botanypots-addon-${VERSION}.jar"
+            "bluemap-botanypots-addon-${VERSION}.module.json"
+            "bluemap-botanypots-addon-${VERSION}.pom"
+          )
+          mapfile -t actual < <(gh release view "${RELEASE_TAG}" \
+            --json assets --jq '.assets[].name' | LC_ALL=C sort)
+          diff -u \
+            <(printf '%s\n' "${expected[@]}" | LC_ALL=C sort) \
+            <(printf '%s\n' "${actual[@]}")
+          downloaded="${RUNNER_TEMP}/final-github-release-assets"
+          mkdir -p "${downloaded}"
+          gh release download "${RELEASE_TAG}" --dir "${downloaded}"
+          for asset in release/*; do
+            cmp "${asset}" "${downloaded}/$(basename "${asset}")"
+          done
+
+          is_draft="$(gh release view "${RELEASE_TAG}" \
+            --json isDraft --jq '.isDraft')"
+          if [[ "${is_draft}" != true ]]; then
+            is_prerelease="$(gh release view "${RELEASE_TAG}" \
+              --json isPrerelease --jq '.isPrerelease')"
+            if [[ "${VERSION}" == *-* ]]; then
+              test "${is_prerelease}" = true
+            else
+              test "${is_prerelease}" = false
+            fi
+            echo 'The exact GitHub release is already public.'
+          elif [[ "${VERSION}" == *-* ]]; then
+            gh release edit "${RELEASE_TAG}" --draft=false --prerelease
+          else
+            gh release edit "${RELEASE_TAG}" --draft=false --latest
+          fi

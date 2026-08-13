@@ -1,0 +1,36 @@
+{
+  "schema_version": 2,
+  "project_license": "LGPL-2.1-only",
+  "implementation_lane": "bounded-botany-display-contract-and-installed-resource-interpreter",
+  "baseline": {
+    "pack": "All the Mons 1.2.0",
+    "pack_commit": "c7bb230f21d14d26859d0b92548f089b3a493ad9",
+    "minecraft": "1.21.1",
+    "neoforge": "21.1.248",
+    "java": 21
+  },
+  "upstreams": [
+    {
+      "name": "BlueMap",
+      "version": "5.22-agent.backport-5.22-mc1.21.1-2",
+      "commit": "9be321df995a1103808621d529eb72773e719d4d",
+      "license": "MIT",
+      "bundled": false
+    },
+    {
+      "name": "Botany Pots",
+      "version": "21.1.44",
+      "source_commit": "335c997dc456f6ea2b9bc3ff13319dfb791803e6",
+      "size": 1068816,
+      "sha256": "45b23ac195511f724f62ab5f0c2d7a1c2c2403ff324a7403a1142e28a7d65edd",
+      "license": "LGPL-2.1-only",
+      "bundled": false
+    }
+  ],
+  "representative_pairs": [
+    ["minecraft:dirt", "minecraft:wheat_seeds"],
+    ["minecraft:sand", "minecraft:cactus"]
+  ],
+  "third_party_code_bundled": false,
+  "third_party_assets_bundled": false
+}

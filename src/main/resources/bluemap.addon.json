@@ -1,0 +1,8 @@
+{
+  "id": "bluemap_botanypots",
+  "name": "BlueMap Botany Pots Add-on",
+  "entrypoint": "io.github.janguenter.bluemap.botanypots.BlueMapBotanyPotsAddon",
+  "version": "${version}",
+  "dependencies": [],
+  "soft-dependencies": []
+}
