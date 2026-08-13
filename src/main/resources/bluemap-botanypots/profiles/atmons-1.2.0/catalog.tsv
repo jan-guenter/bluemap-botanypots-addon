@@ -1,0 +1,5 @@
+kind	recipe_id	profile	source	derivation	input_items	accepted_soils	program_type	displays
+crop	botanypots:minecraft/crop/cactus	core	mod-botanypots	exact-representative	minecraft:cactus	minecraft:sand	aging	minecraft:cactus[age=15]~-~-~-~all~0.625,0.625,0.625~0.0,0.0,0.0~-~resource
+crop	botanypots:minecraft/crop/wheat	core	mod-botanypots	exact-representative	minecraft:wheat_seeds	minecraft:dirt	aging	minecraft:wheat[age=7]~-~-~-~all~0.625,0.625,0.625~0.0,0.0,0.0~-~resource
+soil	botanypots:minecraft/soil/dirt	core	mod-botanypots	exact-representative	minecraft:dirt		simple	minecraft:dirt~-~-~-~up~0.625,0.625,0.625~0.0,0.0,0.0~-~resource
+soil	botanypots:minecraft/soil/sand	core	mod-botanypots	exact-representative	minecraft:sand		simple	minecraft:sand~-~-~-~up~0.625,0.625,0.625~0.0,0.0,0.0~-~resource

@@ -1,0 +1,330 @@
+// SPDX-License-Identifier: LGPL-2.1-only
+
+plugins {
+    id 'java-library'
+    id 'checkstyle'
+    id 'maven-publish'
+}
+
+group = addon_group
+version = addon_version
+
+base {
+    archivesName = artifact_id
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    withSourcesJar()
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url = uri('https://repo.bluecolored.de/releases')
+        content { includeGroupByRegex('de\\.bluecolored.*') }
+    }
+}
+
+dependencies {
+    compileOnly "de.bluecolored:bluemap-core:${bluemap_version}"
+    compileOnly 'org.jetbrains:annotations:23.0.0'
+
+    testImplementation "de.bluecolored:bluemap-core:${bluemap_version}"
+    testImplementation 'org.jetbrains:annotations:23.0.0'
+    testImplementation platform('org.junit:junit-bom:5.11.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+    options.compilerArgs.addAll(['-Xlint:all', '-Werror'])
+}
+
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+def exactArtifactProperties = [
+        'botanyPotsJar'
+]
+
+tasks.named('test', Test).configure {
+    useJUnitPlatform()
+    exclude '**/BlueNbtHotAddIsolationTest.class'
+    exactArtifactProperties.each { propertyName ->
+        def value = providers.gradleProperty(propertyName)
+        if (value.isPresent()) {
+            systemProperty propertyName, value.get()
+        }
+    }
+}
+
+tasks.register('hotAddBlueNbtTest', Test) {
+    description = 'Runs the shared-BlueNBT hot-add rejection oracle in an isolated JVM.'
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform()
+    filter {
+        includeTestsMatching '*BlueNbtHotAddIsolationTest'
+    }
+    forkEvery = 1
+    maxParallelForks = 1
+}
+
+tasks.named('processResources').configure {
+    inputs.property('version', project.version)
+    filesMatching('bluemap.addon.json') {
+        expand(version: project.version)
+    }
+}
+
+checkstyle {
+    toolVersion = '10.18.2'
+    configFile = file('config/checkstyle/checkstyle.xml')
+}
+
+tasks.withType(Checkstyle).configureEach {
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+def productionJar = tasks.named('jar', Jar).flatMap { it.archiveFile }
+def publishedSourcesJar = tasks.named('sourcesJar', Jar).flatMap { it.archiveFile }
+
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes(
+                'Automatic-Module-Name': 'io.github.janguenter.bluemap.botanypots',
+                'Implementation-Title': addon_name,
+                'Implementation-Version': project.version.toString()
+        )
+    }
+    from('LICENSE') {
+        into 'META-INF'
+        rename { 'LICENSE-bluemap-botanypots-addon' }
+    }
+    from('LICENSE-BlueMap') {
+        into 'META-INF'
+    }
+    from('NOTICE.md') {
+        into 'META-INF'
+        rename { 'NOTICE-bluemap-botanypots-addon.md' }
+    }
+    from('THIRD_PARTY.md') {
+        into 'META-INF'
+        rename { 'THIRD_PARTY-bluemap-botanypots-addon.md' }
+    }
+    from('provenance/upstreams.json') {
+        into 'META-INF/bluemap-botanypots'
+    }
+}
+
+tasks.named('sourcesJar', Jar).configure {
+    from('LICENSE') {
+        into 'META-INF'
+        rename { 'LICENSE-bluemap-botanypots-addon' }
+    }
+    from('LICENSE-BlueMap') {
+        into 'META-INF'
+    }
+    from('NOTICE.md') {
+        into 'META-INF'
+        rename { 'NOTICE-bluemap-botanypots-addon.md' }
+    }
+    from('THIRD_PARTY.md') {
+        into 'META-INF'
+        rename { 'THIRD_PARTY-bluemap-botanypots-addon.md' }
+    }
+    from('provenance/upstreams.json') {
+        into 'META-INF/bluemap-botanypots'
+    }
+}
+
+tasks.register('verifyProductionJar') {
+    dependsOn tasks.named('jar')
+    inputs.file(productionJar)
+
+    doLast {
+        def zip = new java.util.zip.ZipFile(inputs.files.singleFile)
+        try {
+            def entries = zip.entries().findAll { !it.directory }.collect { it.name }
+            def required = [
+                    'bluemap.addon.json',
+                    'assets/bluemap_botanypots/blockstates/botany_pot_overlay.json',
+                    'bluemap-botanypots/profiles/exact-artifacts.json',
+                    'bluemap-botanypots/profiles/atmons-1.2.0/profile.json',
+                    'bluemap-botanypots/profiles/atmons-1.2.0/routes.tsv',
+                    'bluemap-botanypots/profiles/atmons-1.2.0/catalog.tsv',
+                    'bluemap-botanypots/profiles/atmons-1.2.0/catalog.sha256',
+                    'META-INF/LICENSE-bluemap-botanypots-addon',
+                    'META-INF/LICENSE-BlueMap',
+                    'META-INF/NOTICE-bluemap-botanypots-addon.md',
+                    'META-INF/THIRD_PARTY-bluemap-botanypots-addon.md',
+                    'META-INF/bluemap-botanypots/upstreams.json'
+            ]
+            def missing = required.findAll { !entries.contains(it) }
+            if (!missing.isEmpty()) {
+                throw new GradleException("Production JAR is missing: ${missing}")
+            }
+            def addon = new groovy.json.JsonSlurper().parseText(
+                    zip.getInputStream(zip.getEntry('bluemap.addon.json')).getText('UTF-8')
+            )
+            if (addon.id != addon_id
+                    || addon.entrypoint
+                    != 'io.github.janguenter.bluemap.botanypots.BlueMapBotanyPotsAddon'
+                    || addon.version != project.version.toString()
+                    || addon.dependencies != []
+                    || addon['soft-dependencies'] != []) {
+                throw new GradleException('BlueMap add-on metadata mismatch')
+            }
+            def forbidden = entries.findAll {
+                it.endsWith('.jar')
+                        || (it.endsWith('.class')
+                        && !it.startsWith('io/github/janguenter/bluemap/botanypots/'))
+                        || it == 'META-INF/neoforge.mods.toml'
+                        || it == 'fabric.mod.json'
+                        || it.endsWith('.mixins.json')
+                        || (it.startsWith('assets/')
+                        && !it.startsWith('assets/bluemap_botanypots/'))
+                        || it.startsWith('data/')
+                        || it.startsWith('net/darkhax/')
+                        || it.startsWith('com/blakebr0/')
+                        || it.startsWith('earth/terrarium/')
+                        || it.startsWith('de/bluecolored/')
+                        || it.startsWith('net/minecraft/')
+                        || it.startsWith('net/neoforged/')
+                        || it.endsWith('.png')
+            }
+            if (!forbidden.isEmpty()) {
+                throw new GradleException("Production JAR contains forbidden entries: ${forbidden}")
+            }
+        } finally {
+            zip.close()
+        }
+    }
+}
+
+tasks.register('verifySourcesJar') {
+    dependsOn tasks.named('sourcesJar')
+    inputs.file(publishedSourcesJar)
+
+    doLast {
+        def zip = new java.util.zip.ZipFile(inputs.files.singleFile)
+        try {
+            def entries = zip.entries().findAll { !it.directory }.collect { it.name }
+            def projectJava = entries.findAll { it.endsWith('.java') }
+            def foreignJava = projectJava.findAll {
+                !it.startsWith('io/github/janguenter/bluemap/botanypots/')
+            }
+            def forbidden = entries.findAll {
+                it.endsWith('.class')
+                        || it.endsWith('.jar')
+                        || (it.startsWith('assets/')
+                        && !it.startsWith('assets/bluemap_botanypots/'))
+                        || it.startsWith('data/')
+                        || it.startsWith('net/darkhax/')
+                        || it.startsWith('com/blakebr0/')
+                        || it.startsWith('earth/terrarium/')
+                        || it.startsWith('de/bluecolored/')
+                        || it.startsWith('net/minecraft/')
+                        || it.startsWith('net/neoforged/')
+                        || it.endsWith('.png')
+            }
+            if (projectJava.isEmpty() || !foreignJava.isEmpty() || !forbidden.isEmpty()) {
+                throw new GradleException(
+                        "Sources JAR boundary mismatch: foreignJava=${foreignJava}, "
+                                + "forbidden=${forbidden}"
+                )
+            }
+        } finally {
+            zip.close()
+        }
+    }
+}
+
+tasks.named('check').configure {
+    dependsOn tasks.named('verifyProductionJar')
+    dependsOn tasks.named('verifySourcesJar')
+    dependsOn 'verifyGeneratedInputs'
+    dependsOn 'verifyGallery'
+    dependsOn 'verifyPythonTools'
+    dependsOn tasks.named('hotAddBlueNbtTest')
+}
+
+tasks.register('verifyGeneratedInputs', Exec) {
+    commandLine 'python3', 'tools/verify_generated.py'
+}
+
+tasks.register('verifyGallery', Exec) {
+    commandLine 'python3', 'gallery/generate.py', '--check'
+}
+
+tasks.register('verifyPythonTools', Exec) {
+    commandLine 'python3', '-m', 'unittest', 'discover',
+            '-s', 'tools/tests', '-p', 'test_*.py'
+}
+
+tasks.register('verifyPinnedArtifacts', Exec) {
+    def botanyPotsJar = providers.gradleProperty('botanyPotsJar')
+    doFirst {
+        if (!botanyPotsJar.isPresent()) {
+            throw new GradleException(
+                    'Set -PbotanyPotsJar to the exact ATM 1.2.0 Botany Pots artifact.'
+            )
+        }
+    }
+    commandLine 'python3', 'tools/verify_pinned_artifacts.py',
+            '--botany-pots-jar', botanyPotsJar.getOrElse('missing')
+}
+
+tasks.register('focusedGate') {
+    dependsOn tasks.named('test')
+    dependsOn tasks.named('checkstyleMain')
+    dependsOn tasks.named('checkstyleTest')
+    dependsOn tasks.named('verifyGeneratedInputs')
+    dependsOn tasks.named('verifyGallery')
+    dependsOn tasks.named('verifyPythonTools')
+    dependsOn tasks.named('hotAddBlueNbtTest')
+}
+
+publishing {
+    publications {
+        addon(MavenPublication) {
+            from components.java
+            artifactId = artifact_id
+            pom {
+                name = addon_name
+                description = 'Exact-profile BlueMap rendering for two representative Botany Pots content pairs.'
+                url = 'https://github.com/jan-guenter/bluemap-botanypots-addon'
+                licenses {
+                    license {
+                        name = 'GNU Lesser General Public License v2.1 only'
+                        url = 'https://spdx.org/licenses/LGPL-2.1-only.html'
+                        distribution = 'repo'
+                    }
+                }
+                scm {
+                    url = 'https://github.com/jan-guenter/bluemap-botanypots-addon'
+                    connection = 'scm:git:https://github.com/jan-guenter/bluemap-botanypots-addon.git'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = 'GitHubPackages'
+            url = uri('https://maven.pkg.github.com/jan-guenter/bluemap-botanypots-addon')
+            credentials {
+                username = System.getenv('GITHUB_ACTOR')
+                password = System.getenv('GITHUB_TOKEN')
+            }
+        }
+    }
+}

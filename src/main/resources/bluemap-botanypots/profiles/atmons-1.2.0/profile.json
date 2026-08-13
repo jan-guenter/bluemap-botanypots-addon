@@ -1,0 +1,41 @@
+{
+  "schema_version": 2,
+  "profile_id": "atmons-1.2.0-representative",
+  "pack": "All the Mons 1.2.0",
+  "pack_commit": "c7bb230f21d14d26859d0b92548f089b3a493ad9",
+  "minecraft": "1.21.1",
+  "neoforge": "21.1.248",
+  "bluemap": "5.22-agent.backport-5.22-mc1.21.1-2",
+  "route_count": 183,
+  "legal_state_count": 23424,
+  "soil_entry_count": 2,
+  "crop_entry_count": 2,
+  "catalog_entry_count": 4,
+  "display_node_count": 4,
+  "supported_pairs": [
+    {
+      "soil": "minecraft:dirt",
+      "seed": "minecraft:wheat_seeds",
+      "mature_crop": "minecraft:wheat[age=7]"
+    },
+    {
+      "soil": "minecraft:sand",
+      "seed": "minecraft:cactus",
+      "mature_crop": "minecraft:cactus[age=15]"
+    }
+  ],
+  "block_entity_id": "botanypots:botany_pot",
+  "inventory": {
+    "list_key": "Items",
+    "soil_slot": 0,
+    "seed_slot": 1,
+    "maximum_entries": 15
+  },
+  "visual_defaults": {
+    "display_scale": 0.625,
+    "crop_baseline_y": 0.3984375,
+    "soil_y_scale": 0.6375,
+    "variant_rng_seed": 42
+  },
+  "required_artifact": "botanypots"
+}

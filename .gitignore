@@ -1,0 +1,14 @@
+.gradle/
+.ci/
+build/
+out/
+*.class
+*.jar
+*.log
+*.zip
+*.py[cod]
+__pycache__/
+.idea/
+.vscode/
+.exporter-work/
+exporter/lib/*.jar

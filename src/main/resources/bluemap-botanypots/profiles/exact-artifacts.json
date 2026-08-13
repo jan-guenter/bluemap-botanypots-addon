@@ -1,0 +1,12 @@
+{
+  "schema_version": 2,
+  "artifacts": {
+    "botanypots": {
+      "mod_id": "botanypots",
+      "version": "21.1.44",
+      "file_name": "botanypots-neoforge-1.21.1-21.1.44.jar",
+      "size": 1068816,
+      "sha256": "45b23ac195511f724f62ab5f0c2d7a1c2c2403ff324a7403a1142e28a7d65edd"
+    }
+  }
+}

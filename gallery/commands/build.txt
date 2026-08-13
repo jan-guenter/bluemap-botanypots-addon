@@ -1,0 +1,967 @@
+scoreboard objectives add botany_gallery dummy
+forceload add 2048 2048 2108 2092
+function botanypots_gallery:clear
+fill 2046 99 2046 2110 99 2094 minecraft:smooth_stone
+scoreboard players set #shells botany_gallery 0
+scoreboard players set #representatives botany_gallery 0
+scoreboard players set #fallbacks botany_gallery 0
+setblock 2048 100 2048 botanypots:black_concrete_botany_pot[facing=south,level=0,waterlogged=false]
+data merge block 2048 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2052 100 2048 botanypots:black_concrete_hopper_botany_pot[facing=east,level=0,waterlogged=false]
+data merge block 2052 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2056 100 2048 botanypots:black_concrete_waxed_botany_pot[facing=north,level=0,waterlogged=false]
+data merge block 2056 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2060 100 2048 botanypots:black_glazed_terracotta_botany_pot[facing=west,level=0,waterlogged=false]
+data merge block 2060 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2063 100 2048 minecraft:barrier
+setblock 2065 100 2048 minecraft:barrier
+setblock 2064 100 2047 minecraft:barrier
+setblock 2064 100 2049 minecraft:barrier
+setblock 2064 100 2048 botanypots:black_glazed_terracotta_hopper_botany_pot[facing=south,level=0,waterlogged=true]
+data merge block 2064 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2067 100 2048 minecraft:barrier
+setblock 2069 100 2048 minecraft:barrier
+setblock 2068 100 2047 minecraft:barrier
+setblock 2068 100 2049 minecraft:barrier
+setblock 2068 100 2048 botanypots:black_glazed_terracotta_waxed_botany_pot[facing=east,level=0,waterlogged=true]
+data merge block 2068 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2071 100 2048 minecraft:barrier
+setblock 2073 100 2048 minecraft:barrier
+setblock 2072 100 2047 minecraft:barrier
+setblock 2072 100 2049 minecraft:barrier
+setblock 2072 100 2048 botanypots:black_terracotta_botany_pot[facing=north,level=0,waterlogged=true]
+data merge block 2072 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2075 100 2048 minecraft:barrier
+setblock 2077 100 2048 minecraft:barrier
+setblock 2076 100 2047 minecraft:barrier
+setblock 2076 100 2049 minecraft:barrier
+setblock 2076 100 2048 botanypots:black_terracotta_hopper_botany_pot[facing=west,level=0,waterlogged=true]
+data merge block 2076 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2080 100 2048 botanypots:black_terracotta_waxed_botany_pot[facing=south,level=1,waterlogged=false]
+data merge block 2080 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2084 100 2048 botanypots:blue_concrete_botany_pot[facing=east,level=1,waterlogged=false]
+data merge block 2084 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2088 100 2048 botanypots:blue_concrete_hopper_botany_pot[facing=north,level=1,waterlogged=false]
+data merge block 2088 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2092 100 2048 botanypots:blue_concrete_waxed_botany_pot[facing=west,level=1,waterlogged=false]
+data merge block 2092 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2095 100 2048 minecraft:barrier
+setblock 2097 100 2048 minecraft:barrier
+setblock 2096 100 2047 minecraft:barrier
+setblock 2096 100 2049 minecraft:barrier
+setblock 2096 100 2048 botanypots:blue_glazed_terracotta_botany_pot[facing=south,level=1,waterlogged=true]
+data merge block 2096 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2099 100 2048 minecraft:barrier
+setblock 2101 100 2048 minecraft:barrier
+setblock 2100 100 2047 minecraft:barrier
+setblock 2100 100 2049 minecraft:barrier
+setblock 2100 100 2048 botanypots:blue_glazed_terracotta_hopper_botany_pot[facing=east,level=1,waterlogged=true]
+data merge block 2100 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2103 100 2048 minecraft:barrier
+setblock 2105 100 2048 minecraft:barrier
+setblock 2104 100 2047 minecraft:barrier
+setblock 2104 100 2049 minecraft:barrier
+setblock 2104 100 2048 botanypots:blue_glazed_terracotta_waxed_botany_pot[facing=north,level=1,waterlogged=true]
+data merge block 2104 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2107 100 2048 minecraft:barrier
+setblock 2109 100 2048 minecraft:barrier
+setblock 2108 100 2047 minecraft:barrier
+setblock 2108 100 2049 minecraft:barrier
+setblock 2108 100 2048 botanypots:blue_terracotta_botany_pot[facing=west,level=1,waterlogged=true]
+data merge block 2108 100 2048 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2048 100 2052 botanypots:blue_terracotta_hopper_botany_pot[facing=south,level=2,waterlogged=false]
+data merge block 2048 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2052 100 2052 botanypots:blue_terracotta_waxed_botany_pot[facing=east,level=2,waterlogged=false]
+data merge block 2052 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2056 100 2052 botanypots:bricks_botany_pot[facing=north,level=2,waterlogged=false]
+data merge block 2056 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2060 100 2052 botanypots:bricks_hopper_botany_pot[facing=west,level=2,waterlogged=false]
+data merge block 2060 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2063 100 2052 minecraft:barrier
+setblock 2065 100 2052 minecraft:barrier
+setblock 2064 100 2051 minecraft:barrier
+setblock 2064 100 2053 minecraft:barrier
+setblock 2064 100 2052 botanypots:bricks_waxed_botany_pot[facing=south,level=2,waterlogged=true]
+data merge block 2064 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2067 100 2052 minecraft:barrier
+setblock 2069 100 2052 minecraft:barrier
+setblock 2068 100 2051 minecraft:barrier
+setblock 2068 100 2053 minecraft:barrier
+setblock 2068 100 2052 botanypots:brown_concrete_botany_pot[facing=east,level=2,waterlogged=true]
+data merge block 2068 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2071 100 2052 minecraft:barrier
+setblock 2073 100 2052 minecraft:barrier
+setblock 2072 100 2051 minecraft:barrier
+setblock 2072 100 2053 minecraft:barrier
+setblock 2072 100 2052 botanypots:brown_concrete_hopper_botany_pot[facing=north,level=2,waterlogged=true]
+data merge block 2072 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2075 100 2052 minecraft:barrier
+setblock 2077 100 2052 minecraft:barrier
+setblock 2076 100 2051 minecraft:barrier
+setblock 2076 100 2053 minecraft:barrier
+setblock 2076 100 2052 botanypots:brown_concrete_waxed_botany_pot[facing=west,level=2,waterlogged=true]
+data merge block 2076 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2080 100 2052 botanypots:brown_glazed_terracotta_botany_pot[facing=south,level=3,waterlogged=false]
+data merge block 2080 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2084 100 2052 botanypots:brown_glazed_terracotta_hopper_botany_pot[facing=east,level=3,waterlogged=false]
+data merge block 2084 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2088 100 2052 botanypots:brown_glazed_terracotta_waxed_botany_pot[facing=north,level=3,waterlogged=false]
+data merge block 2088 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2092 100 2052 botanypots:brown_terracotta_botany_pot[facing=west,level=3,waterlogged=false]
+data merge block 2092 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2095 100 2052 minecraft:barrier
+setblock 2097 100 2052 minecraft:barrier
+setblock 2096 100 2051 minecraft:barrier
+setblock 2096 100 2053 minecraft:barrier
+setblock 2096 100 2052 botanypots:brown_terracotta_hopper_botany_pot[facing=south,level=3,waterlogged=true]
+data merge block 2096 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2099 100 2052 minecraft:barrier
+setblock 2101 100 2052 minecraft:barrier
+setblock 2100 100 2051 minecraft:barrier
+setblock 2100 100 2053 minecraft:barrier
+setblock 2100 100 2052 botanypots:brown_terracotta_waxed_botany_pot[facing=east,level=3,waterlogged=true]
+data merge block 2100 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2103 100 2052 minecraft:barrier
+setblock 2105 100 2052 minecraft:barrier
+setblock 2104 100 2051 minecraft:barrier
+setblock 2104 100 2053 minecraft:barrier
+setblock 2104 100 2052 botanypots:cyan_concrete_botany_pot[facing=north,level=3,waterlogged=true]
+data merge block 2104 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2107 100 2052 minecraft:barrier
+setblock 2109 100 2052 minecraft:barrier
+setblock 2108 100 2051 minecraft:barrier
+setblock 2108 100 2053 minecraft:barrier
+setblock 2108 100 2052 botanypots:cyan_concrete_hopper_botany_pot[facing=west,level=3,waterlogged=true]
+data merge block 2108 100 2052 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2048 100 2056 botanypots:cyan_concrete_waxed_botany_pot[facing=south,level=4,waterlogged=false]
+data merge block 2048 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2052 100 2056 botanypots:cyan_glazed_terracotta_botany_pot[facing=east,level=4,waterlogged=false]
+data merge block 2052 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2056 100 2056 botanypots:cyan_glazed_terracotta_hopper_botany_pot[facing=north,level=4,waterlogged=false]
+data merge block 2056 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2060 100 2056 botanypots:cyan_glazed_terracotta_waxed_botany_pot[facing=west,level=4,waterlogged=false]
+data merge block 2060 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2063 100 2056 minecraft:barrier
+setblock 2065 100 2056 minecraft:barrier
+setblock 2064 100 2055 minecraft:barrier
+setblock 2064 100 2057 minecraft:barrier
+setblock 2064 100 2056 botanypots:cyan_terracotta_botany_pot[facing=south,level=4,waterlogged=true]
+data merge block 2064 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2067 100 2056 minecraft:barrier
+setblock 2069 100 2056 minecraft:barrier
+setblock 2068 100 2055 minecraft:barrier
+setblock 2068 100 2057 minecraft:barrier
+setblock 2068 100 2056 botanypots:cyan_terracotta_hopper_botany_pot[facing=east,level=4,waterlogged=true]
+data merge block 2068 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2071 100 2056 minecraft:barrier
+setblock 2073 100 2056 minecraft:barrier
+setblock 2072 100 2055 minecraft:barrier
+setblock 2072 100 2057 minecraft:barrier
+setblock 2072 100 2056 botanypots:cyan_terracotta_waxed_botany_pot[facing=north,level=4,waterlogged=true]
+data merge block 2072 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2075 100 2056 minecraft:barrier
+setblock 2077 100 2056 minecraft:barrier
+setblock 2076 100 2055 minecraft:barrier
+setblock 2076 100 2057 minecraft:barrier
+setblock 2076 100 2056 botanypots:deepslate_bricks_botany_pot[facing=west,level=4,waterlogged=true]
+data merge block 2076 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2080 100 2056 botanypots:deepslate_bricks_hopper_botany_pot[facing=south,level=5,waterlogged=false]
+data merge block 2080 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2084 100 2056 botanypots:deepslate_bricks_waxed_botany_pot[facing=east,level=5,waterlogged=false]
+data merge block 2084 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2088 100 2056 botanypots:end_stone_bricks_botany_pot[facing=north,level=5,waterlogged=false]
+data merge block 2088 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2092 100 2056 botanypots:end_stone_bricks_hopper_botany_pot[facing=west,level=5,waterlogged=false]
+data merge block 2092 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2095 100 2056 minecraft:barrier
+setblock 2097 100 2056 minecraft:barrier
+setblock 2096 100 2055 minecraft:barrier
+setblock 2096 100 2057 minecraft:barrier
+setblock 2096 100 2056 botanypots:end_stone_bricks_waxed_botany_pot[facing=south,level=5,waterlogged=true]
+data merge block 2096 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2099 100 2056 minecraft:barrier
+setblock 2101 100 2056 minecraft:barrier
+setblock 2100 100 2055 minecraft:barrier
+setblock 2100 100 2057 minecraft:barrier
+setblock 2100 100 2056 botanypots:gray_concrete_botany_pot[facing=east,level=5,waterlogged=true]
+data merge block 2100 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2103 100 2056 minecraft:barrier
+setblock 2105 100 2056 minecraft:barrier
+setblock 2104 100 2055 minecraft:barrier
+setblock 2104 100 2057 minecraft:barrier
+setblock 2104 100 2056 botanypots:gray_concrete_hopper_botany_pot[facing=north,level=5,waterlogged=true]
+data merge block 2104 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2107 100 2056 minecraft:barrier
+setblock 2109 100 2056 minecraft:barrier
+setblock 2108 100 2055 minecraft:barrier
+setblock 2108 100 2057 minecraft:barrier
+setblock 2108 100 2056 botanypots:gray_concrete_waxed_botany_pot[facing=west,level=5,waterlogged=true]
+data merge block 2108 100 2056 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2048 100 2060 botanypots:gray_glazed_terracotta_botany_pot[facing=south,level=6,waterlogged=false]
+data merge block 2048 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2052 100 2060 botanypots:gray_glazed_terracotta_hopper_botany_pot[facing=east,level=6,waterlogged=false]
+data merge block 2052 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2056 100 2060 botanypots:gray_glazed_terracotta_waxed_botany_pot[facing=north,level=6,waterlogged=false]
+data merge block 2056 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2060 100 2060 botanypots:gray_terracotta_botany_pot[facing=west,level=6,waterlogged=false]
+data merge block 2060 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2063 100 2060 minecraft:barrier
+setblock 2065 100 2060 minecraft:barrier
+setblock 2064 100 2059 minecraft:barrier
+setblock 2064 100 2061 minecraft:barrier
+setblock 2064 100 2060 botanypots:gray_terracotta_hopper_botany_pot[facing=south,level=6,waterlogged=true]
+data merge block 2064 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2067 100 2060 minecraft:barrier
+setblock 2069 100 2060 minecraft:barrier
+setblock 2068 100 2059 minecraft:barrier
+setblock 2068 100 2061 minecraft:barrier
+setblock 2068 100 2060 botanypots:gray_terracotta_waxed_botany_pot[facing=east,level=6,waterlogged=true]
+data merge block 2068 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2071 100 2060 minecraft:barrier
+setblock 2073 100 2060 minecraft:barrier
+setblock 2072 100 2059 minecraft:barrier
+setblock 2072 100 2061 minecraft:barrier
+setblock 2072 100 2060 botanypots:green_concrete_botany_pot[facing=north,level=6,waterlogged=true]
+data merge block 2072 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2075 100 2060 minecraft:barrier
+setblock 2077 100 2060 minecraft:barrier
+setblock 2076 100 2059 minecraft:barrier
+setblock 2076 100 2061 minecraft:barrier
+setblock 2076 100 2060 botanypots:green_concrete_hopper_botany_pot[facing=west,level=6,waterlogged=true]
+data merge block 2076 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2080 100 2060 botanypots:green_concrete_waxed_botany_pot[facing=south,level=7,waterlogged=false]
+data merge block 2080 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2084 100 2060 botanypots:green_glazed_terracotta_botany_pot[facing=east,level=7,waterlogged=false]
+data merge block 2084 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2088 100 2060 botanypots:green_glazed_terracotta_hopper_botany_pot[facing=north,level=7,waterlogged=false]
+data merge block 2088 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2092 100 2060 botanypots:green_glazed_terracotta_waxed_botany_pot[facing=west,level=7,waterlogged=false]
+data merge block 2092 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2095 100 2060 minecraft:barrier
+setblock 2097 100 2060 minecraft:barrier
+setblock 2096 100 2059 minecraft:barrier
+setblock 2096 100 2061 minecraft:barrier
+setblock 2096 100 2060 botanypots:green_terracotta_botany_pot[facing=south,level=7,waterlogged=true]
+data merge block 2096 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2099 100 2060 minecraft:barrier
+setblock 2101 100 2060 minecraft:barrier
+setblock 2100 100 2059 minecraft:barrier
+setblock 2100 100 2061 minecraft:barrier
+setblock 2100 100 2060 botanypots:green_terracotta_hopper_botany_pot[facing=east,level=7,waterlogged=true]
+data merge block 2100 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2103 100 2060 minecraft:barrier
+setblock 2105 100 2060 minecraft:barrier
+setblock 2104 100 2059 minecraft:barrier
+setblock 2104 100 2061 minecraft:barrier
+setblock 2104 100 2060 botanypots:green_terracotta_waxed_botany_pot[facing=north,level=7,waterlogged=true]
+data merge block 2104 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2107 100 2060 minecraft:barrier
+setblock 2109 100 2060 minecraft:barrier
+setblock 2108 100 2059 minecraft:barrier
+setblock 2108 100 2061 minecraft:barrier
+setblock 2108 100 2060 botanypots:light_blue_concrete_botany_pot[facing=west,level=7,waterlogged=true]
+data merge block 2108 100 2060 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2048 100 2064 botanypots:light_blue_concrete_hopper_botany_pot[facing=south,level=8,waterlogged=false]
+data merge block 2048 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2052 100 2064 botanypots:light_blue_concrete_waxed_botany_pot[facing=east,level=8,waterlogged=false]
+data merge block 2052 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2056 100 2064 botanypots:light_blue_glazed_terracotta_botany_pot[facing=north,level=8,waterlogged=false]
+data merge block 2056 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2060 100 2064 botanypots:light_blue_glazed_terracotta_hopper_botany_pot[facing=west,level=8,waterlogged=false]
+data merge block 2060 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2063 100 2064 minecraft:barrier
+setblock 2065 100 2064 minecraft:barrier
+setblock 2064 100 2063 minecraft:barrier
+setblock 2064 100 2065 minecraft:barrier
+setblock 2064 100 2064 botanypots:light_blue_glazed_terracotta_waxed_botany_pot[facing=south,level=8,waterlogged=true]
+data merge block 2064 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2067 100 2064 minecraft:barrier
+setblock 2069 100 2064 minecraft:barrier
+setblock 2068 100 2063 minecraft:barrier
+setblock 2068 100 2065 minecraft:barrier
+setblock 2068 100 2064 botanypots:light_blue_terracotta_botany_pot[facing=east,level=8,waterlogged=true]
+data merge block 2068 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2071 100 2064 minecraft:barrier
+setblock 2073 100 2064 minecraft:barrier
+setblock 2072 100 2063 minecraft:barrier
+setblock 2072 100 2065 minecraft:barrier
+setblock 2072 100 2064 botanypots:light_blue_terracotta_hopper_botany_pot[facing=north,level=8,waterlogged=true]
+data merge block 2072 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2075 100 2064 minecraft:barrier
+setblock 2077 100 2064 minecraft:barrier
+setblock 2076 100 2063 minecraft:barrier
+setblock 2076 100 2065 minecraft:barrier
+setblock 2076 100 2064 botanypots:light_blue_terracotta_waxed_botany_pot[facing=west,level=8,waterlogged=true]
+data merge block 2076 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2080 100 2064 botanypots:light_gray_concrete_botany_pot[facing=south,level=9,waterlogged=false]
+data merge block 2080 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2084 100 2064 botanypots:light_gray_concrete_hopper_botany_pot[facing=east,level=9,waterlogged=false]
+data merge block 2084 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2088 100 2064 botanypots:light_gray_concrete_waxed_botany_pot[facing=north,level=9,waterlogged=false]
+data merge block 2088 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2092 100 2064 botanypots:light_gray_glazed_terracotta_botany_pot[facing=west,level=9,waterlogged=false]
+data merge block 2092 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2095 100 2064 minecraft:barrier
+setblock 2097 100 2064 minecraft:barrier
+setblock 2096 100 2063 minecraft:barrier
+setblock 2096 100 2065 minecraft:barrier
+setblock 2096 100 2064 botanypots:light_gray_glazed_terracotta_hopper_botany_pot[facing=south,level=9,waterlogged=true]
+data merge block 2096 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2099 100 2064 minecraft:barrier
+setblock 2101 100 2064 minecraft:barrier
+setblock 2100 100 2063 minecraft:barrier
+setblock 2100 100 2065 minecraft:barrier
+setblock 2100 100 2064 botanypots:light_gray_glazed_terracotta_waxed_botany_pot[facing=east,level=9,waterlogged=true]
+data merge block 2100 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2103 100 2064 minecraft:barrier
+setblock 2105 100 2064 minecraft:barrier
+setblock 2104 100 2063 minecraft:barrier
+setblock 2104 100 2065 minecraft:barrier
+setblock 2104 100 2064 botanypots:light_gray_terracotta_botany_pot[facing=north,level=9,waterlogged=true]
+data merge block 2104 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2107 100 2064 minecraft:barrier
+setblock 2109 100 2064 minecraft:barrier
+setblock 2108 100 2063 minecraft:barrier
+setblock 2108 100 2065 minecraft:barrier
+setblock 2108 100 2064 botanypots:light_gray_terracotta_hopper_botany_pot[facing=west,level=9,waterlogged=true]
+data merge block 2108 100 2064 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2048 100 2068 botanypots:light_gray_terracotta_waxed_botany_pot[facing=south,level=10,waterlogged=false]
+data merge block 2048 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2052 100 2068 botanypots:lime_concrete_botany_pot[facing=east,level=10,waterlogged=false]
+data merge block 2052 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2056 100 2068 botanypots:lime_concrete_hopper_botany_pot[facing=north,level=10,waterlogged=false]
+data merge block 2056 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2060 100 2068 botanypots:lime_concrete_waxed_botany_pot[facing=west,level=10,waterlogged=false]
+data merge block 2060 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2063 100 2068 minecraft:barrier
+setblock 2065 100 2068 minecraft:barrier
+setblock 2064 100 2067 minecraft:barrier
+setblock 2064 100 2069 minecraft:barrier
+setblock 2064 100 2068 botanypots:lime_glazed_terracotta_botany_pot[facing=south,level=10,waterlogged=true]
+data merge block 2064 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2067 100 2068 minecraft:barrier
+setblock 2069 100 2068 minecraft:barrier
+setblock 2068 100 2067 minecraft:barrier
+setblock 2068 100 2069 minecraft:barrier
+setblock 2068 100 2068 botanypots:lime_glazed_terracotta_hopper_botany_pot[facing=east,level=10,waterlogged=true]
+data merge block 2068 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2071 100 2068 minecraft:barrier
+setblock 2073 100 2068 minecraft:barrier
+setblock 2072 100 2067 minecraft:barrier
+setblock 2072 100 2069 minecraft:barrier
+setblock 2072 100 2068 botanypots:lime_glazed_terracotta_waxed_botany_pot[facing=north,level=10,waterlogged=true]
+data merge block 2072 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2075 100 2068 minecraft:barrier
+setblock 2077 100 2068 minecraft:barrier
+setblock 2076 100 2067 minecraft:barrier
+setblock 2076 100 2069 minecraft:barrier
+setblock 2076 100 2068 botanypots:lime_terracotta_botany_pot[facing=west,level=10,waterlogged=true]
+data merge block 2076 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2080 100 2068 botanypots:lime_terracotta_hopper_botany_pot[facing=south,level=11,waterlogged=false]
+data merge block 2080 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2084 100 2068 botanypots:lime_terracotta_waxed_botany_pot[facing=east,level=11,waterlogged=false]
+data merge block 2084 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2088 100 2068 botanypots:magenta_concrete_botany_pot[facing=north,level=11,waterlogged=false]
+data merge block 2088 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2092 100 2068 botanypots:magenta_concrete_hopper_botany_pot[facing=west,level=11,waterlogged=false]
+data merge block 2092 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2095 100 2068 minecraft:barrier
+setblock 2097 100 2068 minecraft:barrier
+setblock 2096 100 2067 minecraft:barrier
+setblock 2096 100 2069 minecraft:barrier
+setblock 2096 100 2068 botanypots:magenta_concrete_waxed_botany_pot[facing=south,level=11,waterlogged=true]
+data merge block 2096 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2099 100 2068 minecraft:barrier
+setblock 2101 100 2068 minecraft:barrier
+setblock 2100 100 2067 minecraft:barrier
+setblock 2100 100 2069 minecraft:barrier
+setblock 2100 100 2068 botanypots:magenta_glazed_terracotta_botany_pot[facing=east,level=11,waterlogged=true]
+data merge block 2100 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2103 100 2068 minecraft:barrier
+setblock 2105 100 2068 minecraft:barrier
+setblock 2104 100 2067 minecraft:barrier
+setblock 2104 100 2069 minecraft:barrier
+setblock 2104 100 2068 botanypots:magenta_glazed_terracotta_hopper_botany_pot[facing=north,level=11,waterlogged=true]
+data merge block 2104 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2107 100 2068 minecraft:barrier
+setblock 2109 100 2068 minecraft:barrier
+setblock 2108 100 2067 minecraft:barrier
+setblock 2108 100 2069 minecraft:barrier
+setblock 2108 100 2068 botanypots:magenta_glazed_terracotta_waxed_botany_pot[facing=west,level=11,waterlogged=true]
+data merge block 2108 100 2068 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2048 100 2072 botanypots:magenta_terracotta_botany_pot[facing=south,level=12,waterlogged=false]
+data merge block 2048 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2052 100 2072 botanypots:magenta_terracotta_hopper_botany_pot[facing=east,level=12,waterlogged=false]
+data merge block 2052 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2056 100 2072 botanypots:magenta_terracotta_waxed_botany_pot[facing=north,level=12,waterlogged=false]
+data merge block 2056 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2060 100 2072 botanypots:mossy_stone_bricks_botany_pot[facing=west,level=12,waterlogged=false]
+data merge block 2060 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2063 100 2072 minecraft:barrier
+setblock 2065 100 2072 minecraft:barrier
+setblock 2064 100 2071 minecraft:barrier
+setblock 2064 100 2073 minecraft:barrier
+setblock 2064 100 2072 botanypots:mossy_stone_bricks_hopper_botany_pot[facing=south,level=12,waterlogged=true]
+data merge block 2064 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2067 100 2072 minecraft:barrier
+setblock 2069 100 2072 minecraft:barrier
+setblock 2068 100 2071 minecraft:barrier
+setblock 2068 100 2073 minecraft:barrier
+setblock 2068 100 2072 botanypots:mossy_stone_bricks_waxed_botany_pot[facing=east,level=12,waterlogged=true]
+data merge block 2068 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2071 100 2072 minecraft:barrier
+setblock 2073 100 2072 minecraft:barrier
+setblock 2072 100 2071 minecraft:barrier
+setblock 2072 100 2073 minecraft:barrier
+setblock 2072 100 2072 botanypots:mud_bricks_botany_pot[facing=north,level=12,waterlogged=true]
+data merge block 2072 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2075 100 2072 minecraft:barrier
+setblock 2077 100 2072 minecraft:barrier
+setblock 2076 100 2071 minecraft:barrier
+setblock 2076 100 2073 minecraft:barrier
+setblock 2076 100 2072 botanypots:mud_bricks_hopper_botany_pot[facing=west,level=12,waterlogged=true]
+data merge block 2076 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2080 100 2072 botanypots:mud_bricks_waxed_botany_pot[facing=south,level=13,waterlogged=false]
+data merge block 2080 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2084 100 2072 botanypots:nether_bricks_botany_pot[facing=east,level=13,waterlogged=false]
+data merge block 2084 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2088 100 2072 botanypots:nether_bricks_hopper_botany_pot[facing=north,level=13,waterlogged=false]
+data merge block 2088 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2092 100 2072 botanypots:nether_bricks_waxed_botany_pot[facing=west,level=13,waterlogged=false]
+data merge block 2092 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2095 100 2072 minecraft:barrier
+setblock 2097 100 2072 minecraft:barrier
+setblock 2096 100 2071 minecraft:barrier
+setblock 2096 100 2073 minecraft:barrier
+setblock 2096 100 2072 botanypots:orange_concrete_botany_pot[facing=south,level=13,waterlogged=true]
+data merge block 2096 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2099 100 2072 minecraft:barrier
+setblock 2101 100 2072 minecraft:barrier
+setblock 2100 100 2071 minecraft:barrier
+setblock 2100 100 2073 minecraft:barrier
+setblock 2100 100 2072 botanypots:orange_concrete_hopper_botany_pot[facing=east,level=13,waterlogged=true]
+data merge block 2100 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2103 100 2072 minecraft:barrier
+setblock 2105 100 2072 minecraft:barrier
+setblock 2104 100 2071 minecraft:barrier
+setblock 2104 100 2073 minecraft:barrier
+setblock 2104 100 2072 botanypots:orange_concrete_waxed_botany_pot[facing=north,level=13,waterlogged=true]
+data merge block 2104 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2107 100 2072 minecraft:barrier
+setblock 2109 100 2072 minecraft:barrier
+setblock 2108 100 2071 minecraft:barrier
+setblock 2108 100 2073 minecraft:barrier
+setblock 2108 100 2072 botanypots:orange_glazed_terracotta_botany_pot[facing=west,level=13,waterlogged=true]
+data merge block 2108 100 2072 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2048 100 2076 botanypots:orange_glazed_terracotta_hopper_botany_pot[facing=south,level=14,waterlogged=false]
+data merge block 2048 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2052 100 2076 botanypots:orange_glazed_terracotta_waxed_botany_pot[facing=east,level=14,waterlogged=false]
+data merge block 2052 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2056 100 2076 botanypots:orange_terracotta_botany_pot[facing=north,level=14,waterlogged=false]
+data merge block 2056 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2060 100 2076 botanypots:orange_terracotta_hopper_botany_pot[facing=west,level=14,waterlogged=false]
+data merge block 2060 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2063 100 2076 minecraft:barrier
+setblock 2065 100 2076 minecraft:barrier
+setblock 2064 100 2075 minecraft:barrier
+setblock 2064 100 2077 minecraft:barrier
+setblock 2064 100 2076 botanypots:orange_terracotta_waxed_botany_pot[facing=south,level=14,waterlogged=true]
+data merge block 2064 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2067 100 2076 minecraft:barrier
+setblock 2069 100 2076 minecraft:barrier
+setblock 2068 100 2075 minecraft:barrier
+setblock 2068 100 2077 minecraft:barrier
+setblock 2068 100 2076 botanypots:pink_concrete_botany_pot[facing=east,level=14,waterlogged=true]
+data merge block 2068 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2071 100 2076 minecraft:barrier
+setblock 2073 100 2076 minecraft:barrier
+setblock 2072 100 2075 minecraft:barrier
+setblock 2072 100 2077 minecraft:barrier
+setblock 2072 100 2076 botanypots:pink_concrete_hopper_botany_pot[facing=north,level=14,waterlogged=true]
+data merge block 2072 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2075 100 2076 minecraft:barrier
+setblock 2077 100 2076 minecraft:barrier
+setblock 2076 100 2075 minecraft:barrier
+setblock 2076 100 2077 minecraft:barrier
+setblock 2076 100 2076 botanypots:pink_concrete_waxed_botany_pot[facing=west,level=14,waterlogged=true]
+data merge block 2076 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2080 100 2076 botanypots:pink_glazed_terracotta_botany_pot[facing=south,level=15,waterlogged=false]
+data merge block 2080 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2084 100 2076 botanypots:pink_glazed_terracotta_hopper_botany_pot[facing=east,level=15,waterlogged=false]
+data merge block 2084 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2088 100 2076 botanypots:pink_glazed_terracotta_waxed_botany_pot[facing=north,level=15,waterlogged=false]
+data merge block 2088 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2092 100 2076 botanypots:pink_terracotta_botany_pot[facing=west,level=15,waterlogged=false]
+data merge block 2092 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2095 100 2076 minecraft:barrier
+setblock 2097 100 2076 minecraft:barrier
+setblock 2096 100 2075 minecraft:barrier
+setblock 2096 100 2077 minecraft:barrier
+setblock 2096 100 2076 botanypots:pink_terracotta_hopper_botany_pot[facing=south,level=15,waterlogged=true]
+data merge block 2096 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2099 100 2076 minecraft:barrier
+setblock 2101 100 2076 minecraft:barrier
+setblock 2100 100 2075 minecraft:barrier
+setblock 2100 100 2077 minecraft:barrier
+setblock 2100 100 2076 botanypots:pink_terracotta_waxed_botany_pot[facing=east,level=15,waterlogged=true]
+data merge block 2100 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2103 100 2076 minecraft:barrier
+setblock 2105 100 2076 minecraft:barrier
+setblock 2104 100 2075 minecraft:barrier
+setblock 2104 100 2077 minecraft:barrier
+setblock 2104 100 2076 botanypots:polished_blackstone_bricks_botany_pot[facing=north,level=15,waterlogged=true]
+data merge block 2104 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2107 100 2076 minecraft:barrier
+setblock 2109 100 2076 minecraft:barrier
+setblock 2108 100 2075 minecraft:barrier
+setblock 2108 100 2077 minecraft:barrier
+setblock 2108 100 2076 botanypots:polished_blackstone_bricks_hopper_botany_pot[facing=west,level=15,waterlogged=true]
+data merge block 2108 100 2076 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2048 100 2080 botanypots:polished_blackstone_bricks_waxed_botany_pot[facing=south,level=0,waterlogged=false]
+data merge block 2048 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2052 100 2080 botanypots:prismarine_bricks_botany_pot[facing=east,level=0,waterlogged=false]
+data merge block 2052 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2056 100 2080 botanypots:prismarine_bricks_hopper_botany_pot[facing=north,level=0,waterlogged=false]
+data merge block 2056 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2060 100 2080 botanypots:prismarine_bricks_waxed_botany_pot[facing=west,level=0,waterlogged=false]
+data merge block 2060 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2063 100 2080 minecraft:barrier
+setblock 2065 100 2080 minecraft:barrier
+setblock 2064 100 2079 minecraft:barrier
+setblock 2064 100 2081 minecraft:barrier
+setblock 2064 100 2080 botanypots:purple_concrete_botany_pot[facing=south,level=0,waterlogged=true]
+data merge block 2064 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2067 100 2080 minecraft:barrier
+setblock 2069 100 2080 minecraft:barrier
+setblock 2068 100 2079 minecraft:barrier
+setblock 2068 100 2081 minecraft:barrier
+setblock 2068 100 2080 botanypots:purple_concrete_hopper_botany_pot[facing=east,level=0,waterlogged=true]
+data merge block 2068 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2071 100 2080 minecraft:barrier
+setblock 2073 100 2080 minecraft:barrier
+setblock 2072 100 2079 minecraft:barrier
+setblock 2072 100 2081 minecraft:barrier
+setblock 2072 100 2080 botanypots:purple_concrete_waxed_botany_pot[facing=north,level=0,waterlogged=true]
+data merge block 2072 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2075 100 2080 minecraft:barrier
+setblock 2077 100 2080 minecraft:barrier
+setblock 2076 100 2079 minecraft:barrier
+setblock 2076 100 2081 minecraft:barrier
+setblock 2076 100 2080 botanypots:purple_glazed_terracotta_botany_pot[facing=west,level=0,waterlogged=true]
+data merge block 2076 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2080 100 2080 botanypots:purple_glazed_terracotta_hopper_botany_pot[facing=south,level=1,waterlogged=false]
+data merge block 2080 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2084 100 2080 botanypots:purple_glazed_terracotta_waxed_botany_pot[facing=east,level=1,waterlogged=false]
+data merge block 2084 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2088 100 2080 botanypots:purple_terracotta_botany_pot[facing=north,level=1,waterlogged=false]
+data merge block 2088 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2092 100 2080 botanypots:purple_terracotta_hopper_botany_pot[facing=west,level=1,waterlogged=false]
+data merge block 2092 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2095 100 2080 minecraft:barrier
+setblock 2097 100 2080 minecraft:barrier
+setblock 2096 100 2079 minecraft:barrier
+setblock 2096 100 2081 minecraft:barrier
+setblock 2096 100 2080 botanypots:purple_terracotta_waxed_botany_pot[facing=south,level=1,waterlogged=true]
+data merge block 2096 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2099 100 2080 minecraft:barrier
+setblock 2101 100 2080 minecraft:barrier
+setblock 2100 100 2079 minecraft:barrier
+setblock 2100 100 2081 minecraft:barrier
+setblock 2100 100 2080 botanypots:quartz_bricks_botany_pot[facing=east,level=1,waterlogged=true]
+data merge block 2100 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2103 100 2080 minecraft:barrier
+setblock 2105 100 2080 minecraft:barrier
+setblock 2104 100 2079 minecraft:barrier
+setblock 2104 100 2081 minecraft:barrier
+setblock 2104 100 2080 botanypots:quartz_bricks_hopper_botany_pot[facing=north,level=1,waterlogged=true]
+data merge block 2104 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2107 100 2080 minecraft:barrier
+setblock 2109 100 2080 minecraft:barrier
+setblock 2108 100 2079 minecraft:barrier
+setblock 2108 100 2081 minecraft:barrier
+setblock 2108 100 2080 botanypots:quartz_bricks_waxed_botany_pot[facing=west,level=1,waterlogged=true]
+data merge block 2108 100 2080 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2048 100 2084 botanypots:red_concrete_botany_pot[facing=south,level=2,waterlogged=false]
+data merge block 2048 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2052 100 2084 botanypots:red_concrete_hopper_botany_pot[facing=east,level=2,waterlogged=false]
+data merge block 2052 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2056 100 2084 botanypots:red_concrete_waxed_botany_pot[facing=north,level=2,waterlogged=false]
+data merge block 2056 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2060 100 2084 botanypots:red_glazed_terracotta_botany_pot[facing=west,level=2,waterlogged=false]
+data merge block 2060 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2063 100 2084 minecraft:barrier
+setblock 2065 100 2084 minecraft:barrier
+setblock 2064 100 2083 minecraft:barrier
+setblock 2064 100 2085 minecraft:barrier
+setblock 2064 100 2084 botanypots:red_glazed_terracotta_hopper_botany_pot[facing=south,level=2,waterlogged=true]
+data merge block 2064 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2067 100 2084 minecraft:barrier
+setblock 2069 100 2084 minecraft:barrier
+setblock 2068 100 2083 minecraft:barrier
+setblock 2068 100 2085 minecraft:barrier
+setblock 2068 100 2084 botanypots:red_glazed_terracotta_waxed_botany_pot[facing=east,level=2,waterlogged=true]
+data merge block 2068 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2071 100 2084 minecraft:barrier
+setblock 2073 100 2084 minecraft:barrier
+setblock 2072 100 2083 minecraft:barrier
+setblock 2072 100 2085 minecraft:barrier
+setblock 2072 100 2084 botanypots:red_nether_bricks_botany_pot[facing=north,level=2,waterlogged=true]
+data merge block 2072 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2075 100 2084 minecraft:barrier
+setblock 2077 100 2084 minecraft:barrier
+setblock 2076 100 2083 minecraft:barrier
+setblock 2076 100 2085 minecraft:barrier
+setblock 2076 100 2084 botanypots:red_nether_bricks_hopper_botany_pot[facing=west,level=2,waterlogged=true]
+data merge block 2076 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2080 100 2084 botanypots:red_nether_bricks_waxed_botany_pot[facing=south,level=3,waterlogged=false]
+data merge block 2080 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2084 100 2084 botanypots:red_terracotta_botany_pot[facing=east,level=3,waterlogged=false]
+data merge block 2084 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2088 100 2084 botanypots:red_terracotta_hopper_botany_pot[facing=north,level=3,waterlogged=false]
+data merge block 2088 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2092 100 2084 botanypots:red_terracotta_waxed_botany_pot[facing=west,level=3,waterlogged=false]
+data merge block 2092 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2095 100 2084 minecraft:barrier
+setblock 2097 100 2084 minecraft:barrier
+setblock 2096 100 2083 minecraft:barrier
+setblock 2096 100 2085 minecraft:barrier
+setblock 2096 100 2084 botanypots:stone_bricks_botany_pot[facing=south,level=3,waterlogged=true]
+data merge block 2096 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2099 100 2084 minecraft:barrier
+setblock 2101 100 2084 minecraft:barrier
+setblock 2100 100 2083 minecraft:barrier
+setblock 2100 100 2085 minecraft:barrier
+setblock 2100 100 2084 botanypots:stone_bricks_hopper_botany_pot[facing=east,level=3,waterlogged=true]
+data merge block 2100 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2103 100 2084 minecraft:barrier
+setblock 2105 100 2084 minecraft:barrier
+setblock 2104 100 2083 minecraft:barrier
+setblock 2104 100 2085 minecraft:barrier
+setblock 2104 100 2084 botanypots:stone_bricks_waxed_botany_pot[facing=north,level=3,waterlogged=true]
+data merge block 2104 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2107 100 2084 minecraft:barrier
+setblock 2109 100 2084 minecraft:barrier
+setblock 2108 100 2083 minecraft:barrier
+setblock 2108 100 2085 minecraft:barrier
+setblock 2108 100 2084 botanypots:terracotta_botany_pot[facing=west,level=3,waterlogged=true]
+data merge block 2108 100 2084 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2048 100 2088 botanypots:terracotta_hopper_botany_pot[facing=south,level=4,waterlogged=false]
+data merge block 2048 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2052 100 2088 botanypots:terracotta_waxed_botany_pot[facing=east,level=4,waterlogged=false]
+data merge block 2052 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2056 100 2088 botanypots:tuff_bricks_botany_pot[facing=north,level=4,waterlogged=false]
+data merge block 2056 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2060 100 2088 botanypots:tuff_bricks_hopper_botany_pot[facing=west,level=4,waterlogged=false]
+data merge block 2060 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2063 100 2088 minecraft:barrier
+setblock 2065 100 2088 minecraft:barrier
+setblock 2064 100 2087 minecraft:barrier
+setblock 2064 100 2089 minecraft:barrier
+setblock 2064 100 2088 botanypots:tuff_bricks_waxed_botany_pot[facing=south,level=4,waterlogged=true]
+data merge block 2064 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2067 100 2088 minecraft:barrier
+setblock 2069 100 2088 minecraft:barrier
+setblock 2068 100 2087 minecraft:barrier
+setblock 2068 100 2089 minecraft:barrier
+setblock 2068 100 2088 botanypots:white_concrete_botany_pot[facing=east,level=4,waterlogged=true]
+data merge block 2068 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2071 100 2088 minecraft:barrier
+setblock 2073 100 2088 minecraft:barrier
+setblock 2072 100 2087 minecraft:barrier
+setblock 2072 100 2089 minecraft:barrier
+setblock 2072 100 2088 botanypots:white_concrete_hopper_botany_pot[facing=north,level=4,waterlogged=true]
+data merge block 2072 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2075 100 2088 minecraft:barrier
+setblock 2077 100 2088 minecraft:barrier
+setblock 2076 100 2087 minecraft:barrier
+setblock 2076 100 2089 minecraft:barrier
+setblock 2076 100 2088 botanypots:white_concrete_waxed_botany_pot[facing=west,level=4,waterlogged=true]
+data merge block 2076 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2080 100 2088 botanypots:white_glazed_terracotta_botany_pot[facing=south,level=5,waterlogged=false]
+data merge block 2080 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2084 100 2088 botanypots:white_glazed_terracotta_hopper_botany_pot[facing=east,level=5,waterlogged=false]
+data merge block 2084 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2088 100 2088 botanypots:white_glazed_terracotta_waxed_botany_pot[facing=north,level=5,waterlogged=false]
+data merge block 2088 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2092 100 2088 botanypots:white_terracotta_botany_pot[facing=west,level=5,waterlogged=false]
+data merge block 2092 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2095 100 2088 minecraft:barrier
+setblock 2097 100 2088 minecraft:barrier
+setblock 2096 100 2087 minecraft:barrier
+setblock 2096 100 2089 minecraft:barrier
+setblock 2096 100 2088 botanypots:white_terracotta_hopper_botany_pot[facing=south,level=5,waterlogged=true]
+data merge block 2096 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2099 100 2088 minecraft:barrier
+setblock 2101 100 2088 minecraft:barrier
+setblock 2100 100 2087 minecraft:barrier
+setblock 2100 100 2089 minecraft:barrier
+setblock 2100 100 2088 botanypots:white_terracotta_waxed_botany_pot[facing=east,level=5,waterlogged=true]
+data merge block 2100 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2103 100 2088 minecraft:barrier
+setblock 2105 100 2088 minecraft:barrier
+setblock 2104 100 2087 minecraft:barrier
+setblock 2104 100 2089 minecraft:barrier
+setblock 2104 100 2088 botanypots:yellow_concrete_botany_pot[facing=north,level=5,waterlogged=true]
+data merge block 2104 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2107 100 2088 minecraft:barrier
+setblock 2109 100 2088 minecraft:barrier
+setblock 2108 100 2087 minecraft:barrier
+setblock 2108 100 2089 minecraft:barrier
+setblock 2108 100 2088 botanypots:yellow_concrete_hopper_botany_pot[facing=west,level=5,waterlogged=true]
+data merge block 2108 100 2088 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2048 100 2092 botanypots:yellow_concrete_waxed_botany_pot[facing=south,level=6,waterlogged=false]
+data merge block 2048 100 2092 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2052 100 2092 botanypots:yellow_glazed_terracotta_botany_pot[facing=east,level=6,waterlogged=false]
+data merge block 2052 100 2092 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2056 100 2092 botanypots:yellow_glazed_terracotta_hopper_botany_pot[facing=north,level=6,waterlogged=false]
+data merge block 2056 100 2092 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2060 100 2092 botanypots:yellow_glazed_terracotta_waxed_botany_pot[facing=west,level=6,waterlogged=false]
+data merge block 2060 100 2092 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2063 100 2092 minecraft:barrier
+setblock 2065 100 2092 minecraft:barrier
+setblock 2064 100 2091 minecraft:barrier
+setblock 2064 100 2093 minecraft:barrier
+setblock 2064 100 2092 botanypots:yellow_terracotta_botany_pot[facing=south,level=6,waterlogged=true]
+data merge block 2064 100 2092 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2067 100 2092 minecraft:barrier
+setblock 2069 100 2092 minecraft:barrier
+setblock 2068 100 2091 minecraft:barrier
+setblock 2068 100 2093 minecraft:barrier
+setblock 2068 100 2092 botanypots:yellow_terracotta_hopper_botany_pot[facing=east,level=6,waterlogged=true]
+data merge block 2068 100 2092 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2071 100 2092 minecraft:barrier
+setblock 2073 100 2092 minecraft:barrier
+setblock 2072 100 2091 minecraft:barrier
+setblock 2072 100 2093 minecraft:barrier
+setblock 2072 100 2092 botanypots:yellow_terracotta_waxed_botany_pot[facing=north,level=6,waterlogged=true]
+data merge block 2072 100 2092 {Items:[]}
+scoreboard players add #shells botany_gallery 1
+setblock 2075 100 2092 minecraft:barrier
+setblock 2077 100 2092 minecraft:barrier
+setblock 2076 100 2091 minecraft:barrier
+setblock 2076 100 2093 minecraft:barrier
+setblock 2076 100 2092 botanypots:terracotta_botany_pot[facing=west,level=6,waterlogged=true]
+data merge block 2076 100 2092 {Items:[{Slot:0b,id:"minecraft:dirt",count:1},{Slot:1b,id:"minecraft:wheat_seeds",count:1}]}
+scoreboard players add #representatives botany_gallery 1
+setblock 2080 100 2092 botanypots:terracotta_hopper_botany_pot[facing=south,level=7,waterlogged=false]
+data merge block 2080 100 2092 {Items:[{Slot:0b,id:"minecraft:dirt",count:1},{Slot:1b,id:"minecraft:wheat_seeds",count:1}]}
+scoreboard players add #representatives botany_gallery 1
+setblock 2084 100 2092 botanypots:terracotta_waxed_botany_pot[facing=east,level=7,waterlogged=false]
+data merge block 2084 100 2092 {Items:[{Slot:0b,id:"minecraft:dirt",count:1},{Slot:1b,id:"minecraft:wheat_seeds",count:1}]}
+scoreboard players add #representatives botany_gallery 1
+setblock 2088 100 2092 botanypots:terracotta_botany_pot[facing=north,level=7,waterlogged=false]
+data merge block 2088 100 2092 {Items:[{Slot:0b,id:"minecraft:sand",count:1},{Slot:1b,id:"minecraft:cactus",count:1}]}
+scoreboard players add #representatives botany_gallery 1
+setblock 2092 100 2092 botanypots:terracotta_hopper_botany_pot[facing=west,level=7,waterlogged=false]
+data merge block 2092 100 2092 {Items:[{Slot:0b,id:"minecraft:sand",count:1},{Slot:1b,id:"minecraft:cactus",count:1}]}
+scoreboard players add #representatives botany_gallery 1
+setblock 2095 100 2092 minecraft:barrier
+setblock 2097 100 2092 minecraft:barrier
+setblock 2096 100 2091 minecraft:barrier
+setblock 2096 100 2093 minecraft:barrier
+setblock 2096 100 2092 botanypots:terracotta_waxed_botany_pot[facing=south,level=7,waterlogged=true]
+data merge block 2096 100 2092 {Items:[{Slot:0b,id:"minecraft:sand",count:1},{Slot:1b,id:"minecraft:cactus",count:1}]}
+scoreboard players add #representatives botany_gallery 1
+setblock 2099 100 2092 minecraft:barrier
+setblock 2101 100 2092 minecraft:barrier
+setblock 2100 100 2091 minecraft:barrier
+setblock 2100 100 2093 minecraft:barrier
+setblock 2100 100 2092 botanypots:terracotta_botany_pot[facing=east,level=7,waterlogged=true]
+data merge block 2100 100 2092 {Items:[]}
+scoreboard players add #fallbacks botany_gallery 1
+setblock 2103 100 2092 minecraft:barrier
+setblock 2105 100 2092 minecraft:barrier
+setblock 2104 100 2091 minecraft:barrier
+setblock 2104 100 2093 minecraft:barrier
+setblock 2104 100 2092 botanypots:terracotta_hopper_botany_pot[facing=north,level=7,waterlogged=true]
+data merge block 2104 100 2092 {Items:[{Slot:0b,id:"minecraft:dirt",count:1},{Slot:1b,id:"minecraft:stick",count:1}]}
+scoreboard players add #fallbacks botany_gallery 1
+setblock 2107 100 2092 minecraft:barrier
+setblock 2109 100 2092 minecraft:barrier
+setblock 2108 100 2091 minecraft:barrier
+setblock 2108 100 2093 minecraft:barrier
+setblock 2108 100 2092 botanypots:terracotta_waxed_botany_pot[facing=west,level=7,waterlogged=true]
+data merge block 2108 100 2092 {Items:[{Slot:0b,id:"minecraft:dirt",count:1},{Slot:1b,id:"minecraft:cactus",count:1}]}
+scoreboard players add #fallbacks botany_gallery 1
