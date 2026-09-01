@@ -12,10 +12,24 @@
   "upstreams": [
     {
       "name": "BlueMap",
-      "version": "5.22-agent.backport-5.22-mc1.21.1-2",
-      "commit": "9be321df995a1103808621d529eb72773e719d4d",
+      "version": "5.22-feature.backport-5.23-stateless-java-web-server-46",
+      "commit": "7e07f4e74ec1e92a6ead9aa1e66054af3e133aac",
+      "api_commit": "285c9a60eff3ac2b0cab308ce1058d1565be0971",
+      "size": 6545661,
+      "sha256": "86a0323d24f472e425dda4d4e6bba2d7d8ce8315ad009930a67131128c715e62",
       "license": "MIT",
       "bundled": false
+    },
+    {
+      "name": "BlueMap Add-on Adapter API",
+      "version": "0.1.0-alpha.2",
+      "commit": "e81f08bc4bfbf02d810ec8949a019130e2e61634",
+      "source_tree": "2f974c9bb2ba13888d69682f86f30f58922d30eb",
+      "integration": "exact-gitlink-pinned-sources",
+      "compiled_source_count": 4,
+      "license": "MIT",
+      "bundled": true,
+      "standalone_jar_bundled": false
     },
     {
       "name": "Botany Pots",

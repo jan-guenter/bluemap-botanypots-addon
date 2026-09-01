@@ -6,7 +6,7 @@
  * Botany Pots' virtual, unculled, face-filtered display contract and never
  * applies ordinary world-block random offsets.
  */
-package io.github.janguenter.bluemap.botanypots.adapter.bluemap522;
+package io.github.janguenter.bluemap.botanypots.adapter.bluemap523;
 
 import com.flowpowered.math.vector.Vector3f;
 import com.flowpowered.math.vector.Vector4f;

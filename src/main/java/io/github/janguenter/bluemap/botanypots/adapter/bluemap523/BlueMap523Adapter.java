@@ -1,26 +1,25 @@
 /*
  * SPDX-License-Identifier: LGPL-2.1-only
  */
-package io.github.janguenter.bluemap.botanypots.adapter.bluemap522;
+package io.github.janguenter.bluemap.botanypots.adapter.bluemap523;
 
 import de.bluecolored.bluemap.core.map.hires.block.BlockRendererType;
 import de.bluecolored.bluemap.core.resources.pack.resourcepack.ResourcePack;
-import de.bluecolored.bluemap.core.resources.pack.resourcepack.blockstate.Variant;
 import de.bluecolored.bluemap.core.util.Key;
-import de.bluecolored.bluemap.core.util.Keyed;
-import de.bluecolored.bluemap.core.util.Registry;
 import de.bluecolored.bluemap.core.world.BlockEntity;
 import de.bluecolored.bluemap.core.world.mca.MCAUtil;
 import de.bluecolored.bluemap.core.world.mca.blockentity.BlockEntityType;
 import de.bluecolored.bluenbt.NBTWriter;
 import de.bluecolored.bluenbt.TagType;
+import io.github.janguenter.bluemap.addon.adapter.api.bluemap523.RegistryGuard;
+import io.github.janguenter.bluemap.addon.adapter.api.bluemap523.ResourceExtensionType;
 import io.github.janguenter.bluemap.botanypots.activation.BotanyPotsRuntime;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-/** BlueMap 5.22 internal ABI boundary. */
-public final class BlueMap522Adapter {
+/** Exact BlueMap 5.23 feature-backport internal ABI boundary. */
+public final class BlueMap523Adapter {
 
     private static final BotanyPotsRuntime RUNTIME = BotanyPotsRuntime.INSTANCE;
     static final Key RENDERER_KEY = Key.parse("bluemap_botanypots:botany_pot_overlay");
@@ -29,38 +28,32 @@ public final class BlueMap522Adapter {
             (pack, gallery, settings) -> new BotanyPotsRenderer(pack, gallery, settings, RUNTIME)
     );
     private static final ResourcePack.Extension<BotanyPotsResourceExtension> EXTENSION =
-            new BotanyPotsResourceExtensionType(RUNTIME);
+            new ResourceExtensionType<>(
+                    Key.parse("bluemap_botanypots:exact_profile"),
+                    pack -> new BotanyPotsResourceExtension(pack, RENDERER, RUNTIME)
+            );
     private static final BlockEntityType BLOCK_ENTITY = new BlockEntityType.Impl(
             Key.parse("botanypots:botany_pot"),
             BotanyPotBlockEntityData.class
     );
 
-    private BlueMap522Adapter() {
+    private BlueMap523Adapter() {
     }
 
     public static synchronized boolean install() {
-        if (!canRegister(BlockRendererType.REGISTRY, RENDERER)
-                || !canRegister(ResourcePack.Extension.REGISTRY, EXTENSION)
-                || !canRegister(BlockEntityType.REGISTRY, BLOCK_ENTITY)) {
+        if (!RegistryGuard.canRegister(BlockRendererType.REGISTRY, RENDERER)
+                || !RegistryGuard.canRegister(ResourcePack.Extension.REGISTRY, EXTENSION)
+                || !RegistryGuard.canRegister(BlockEntityType.REGISTRY, BLOCK_ENTITY)) {
             RUNTIME.disableAll("registry-collision");
             return false;
         }
-        if (!register(BlockRendererType.REGISTRY, RENDERER)
-                || !register(ResourcePack.Extension.REGISTRY, EXTENSION)
-                || !register(BlockEntityType.REGISTRY, BLOCK_ENTITY)) {
+        if (!RegistryGuard.register(BlockRendererType.REGISTRY, RENDERER)
+                || !RegistryGuard.register(ResourcePack.Extension.REGISTRY, EXTENSION)
+                || !RegistryGuard.register(BlockEntityType.REGISTRY, BLOCK_ENTITY)) {
             RUNTIME.disableAll("registry-collision");
             return false;
         }
         return true;
-    }
-
-    static boolean isExpectedDispatch(Variant variant) {
-        return variant != null
-                && variant.getRenderer() == RENDERER
-                && ResourcePack.MISSING_BLOCK_MODEL.equals(variant.getModel())
-                && !variant.isTransformed()
-                && !variant.isUvlock()
-                && Double.compare(variant.getWeight(), 1D) == 0;
     }
 
     /**
@@ -92,6 +85,10 @@ public final class BlueMap522Adapter {
         }
     }
 
+    static ResourcePack.Extension<BotanyPotsResourceExtension> extensionType() {
+        return EXTENSION;
+    }
+
     private static byte[] createProbeNbt() throws IOException {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         try (NBTWriter writer = new NBTWriter(bytes)) {
@@ -118,17 +115,4 @@ public final class BlueMap522Adapter {
         writer.endCompound();
     }
 
-    private static <T extends Keyed> boolean canRegister(Registry<T> registry, T candidate) {
-        T existing = registry.get(candidate.getKey());
-        return existing == null || existing == candidate;
-    }
-
-    private static <T extends Keyed> boolean register(Registry<T> registry, T candidate) {
-        T existing = registry.get(candidate.getKey());
-        if (existing == null) {
-            registry.register(candidate);
-            existing = registry.get(candidate.getKey());
-        }
-        return existing == candidate;
-    }
 }

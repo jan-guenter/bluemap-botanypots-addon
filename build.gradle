@@ -14,6 +14,10 @@ base {
     archivesName = artifact_id
 }
 
+sourceSets {
+    main.java.srcDir 'modules/bluemap-addon-adapter-api/src/main/java'
+}
+
 repositories {
     mavenCentral()
     maven {
@@ -68,6 +72,22 @@ tasks.named('processResources').configure {
 
 def productionJar = tasks.named('jar', Jar).flatMap { it.archiveFile }
 def publishedSourcesJar = tasks.named('sourcesJar', Jar).flatMap { it.archiveFile }
+def sharedAdapterApiPackage =
+        'io/github/janguenter/bluemap/addon/adapter/api/bluemap523/'
+def sharedAdapterApiClasses = [
+        "${sharedAdapterApiPackage}BlueMapRuntimeCompatibility.class",
+        "${sharedAdapterApiPackage}RegistryGuard.class",
+        "${sharedAdapterApiPackage}ResourceExtensionType.class",
+        "${sharedAdapterApiPackage}SyntheticDispatch.class"
+].collect { it.toString() }
+def sharedAdapterApiSources = [
+        "${sharedAdapterApiPackage}BlueMapRuntimeCompatibility.java",
+        "${sharedAdapterApiPackage}RegistryGuard.java",
+        "${sharedAdapterApiPackage}ResourceExtensionType.java",
+        "${sharedAdapterApiPackage}SyntheticDispatch.java"
+].collect { it.toString() }
+def legacyLocalAdapterPackage =
+        'io/github/janguenter/bluemap/botanypots/adapter/bluemap522/'
 
 tasks.named('jar', Jar).configure {
     manifest {
@@ -83,6 +103,10 @@ tasks.named('jar', Jar).configure {
     }
     from('LICENSE-BlueMap') {
         into 'META-INF'
+    }
+    from('modules/bluemap-addon-adapter-api/LICENSE') {
+        into 'META-INF'
+        rename { 'LICENSE-bluemap-addon-adapter-api' }
     }
     from('NOTICE.md') {
         into 'META-INF'
@@ -104,6 +128,10 @@ tasks.named('sourcesJar', Jar).configure {
     }
     from('LICENSE-BlueMap') {
         into 'META-INF'
+    }
+    from('modules/bluemap-addon-adapter-api/LICENSE') {
+        into 'META-INF'
+        rename { 'LICENSE-bluemap-addon-adapter-api' }
     }
     from('NOTICE.md') {
         into 'META-INF'
@@ -136,13 +164,20 @@ tasks.register('verifyProductionJar') {
                     'bluemap-botanypots/profiles/atmons-1.2.0/catalog.sha256',
                     'META-INF/LICENSE-bluemap-botanypots-addon',
                     'META-INF/LICENSE-BlueMap',
+                    'META-INF/LICENSE-bluemap-addon-adapter-api',
                     'META-INF/NOTICE-bluemap-botanypots-addon.md',
                     'META-INF/THIRD_PARTY-bluemap-botanypots-addon.md',
                     'META-INF/bluemap-botanypots/upstreams.json'
-            ]
+            ] + sharedAdapterApiClasses
             def missing = required.findAll { !entries.contains(it) }
-            if (!missing.isEmpty()) {
-                throw new GradleException("Production JAR is missing: ${missing}")
+            def duplicateShared = sharedAdapterApiClasses.findAll { shared ->
+                entries.count { it == shared } != 1
+            }
+            if (!missing.isEmpty() || !duplicateShared.isEmpty()) {
+                throw new GradleException(
+                        "Production JAR shared boundary mismatch: missing=${missing}, "
+                                + "nonUnique=${duplicateShared}"
+                )
             }
             def addon = new groovy.json.JsonSlurper().parseText(
                     zip.getInputStream(zip.getEntry('bluemap.addon.json')).getText('UTF-8')
@@ -158,7 +193,8 @@ tasks.register('verifyProductionJar') {
             def forbidden = entries.findAll {
                 it.endsWith('.jar')
                         || (it.endsWith('.class')
-                        && !it.startsWith('io/github/janguenter/bluemap/botanypots/'))
+                        && !it.startsWith('io/github/janguenter/bluemap/botanypots/')
+                        && !sharedAdapterApiClasses.contains(it))
                         || it == 'META-INF/neoforge.mods.toml'
                         || it == 'fabric.mod.json'
                         || it.endsWith('.mixins.json')
@@ -171,6 +207,9 @@ tasks.register('verifyProductionJar') {
                         || it.startsWith('de/bluecolored/')
                         || it.startsWith('net/minecraft/')
                         || it.startsWith('net/neoforged/')
+                        || (it.startsWith(legacyLocalAdapterPackage) && !it.endsWith('/'))
+                        || (it.startsWith(sharedAdapterApiPackage) && !it.endsWith('/')
+                            && !sharedAdapterApiClasses.contains(it))
                         || it.endsWith('.png')
             }
             if (!forbidden.isEmpty()) {
@@ -190,9 +229,17 @@ tasks.register('verifySourcesJar') {
         def zip = new java.util.zip.ZipFile(inputs.files.singleFile)
         try {
             def entries = zip.entries().findAll { !it.directory }.collect { it.name }
+            def required = [
+                    'META-INF/LICENSE-bluemap-addon-adapter-api'
+            ] + sharedAdapterApiSources
+            def missing = required.findAll { !entries.contains(it) }
+            def duplicateShared = sharedAdapterApiSources.findAll { shared ->
+                entries.count { it == shared } != 1
+            }
             def projectJava = entries.findAll { it.endsWith('.java') }
             def foreignJava = projectJava.findAll {
                 !it.startsWith('io/github/janguenter/bluemap/botanypots/')
+                        && !sharedAdapterApiSources.contains(it)
             }
             def forbidden = entries.findAll {
                 it.endsWith('.class')
@@ -206,11 +253,17 @@ tasks.register('verifySourcesJar') {
                         || it.startsWith('de/bluecolored/')
                         || it.startsWith('net/minecraft/')
                         || it.startsWith('net/neoforged/')
+                        || (it.startsWith(legacyLocalAdapterPackage) && !it.endsWith('/'))
+                        || (it.startsWith(sharedAdapterApiPackage) && !it.endsWith('/')
+                            && !sharedAdapterApiSources.contains(it))
                         || it.endsWith('.png')
             }
-            if (projectJava.isEmpty() || !foreignJava.isEmpty() || !forbidden.isEmpty()) {
+            if (!missing.isEmpty() || !duplicateShared.isEmpty()
+                    || projectJava.isEmpty() || !foreignJava.isEmpty()
+                    || !forbidden.isEmpty()) {
                 throw new GradleException(
-                        "Sources JAR boundary mismatch: foreignJava=${foreignJava}, "
+                        "Sources JAR boundary mismatch: missing=${missing}, "
+                                + "nonUnique=${duplicateShared}, foreignJava=${foreignJava}, "
                                 + "forbidden=${forbidden}"
                 )
             }

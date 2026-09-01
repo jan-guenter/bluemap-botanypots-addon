@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: LGPL-2.1-only */
-package io.github.janguenter.bluemap.botanypots.adapter.bluemap522;
+package io.github.janguenter.bluemap.botanypots.adapter.bluemap523;
 
 import com.flowpowered.math.vector.Vector3f;
 import de.bluecolored.bluemap.core.map.TextureGallery;
@@ -58,9 +58,9 @@ class OuterWaterPassIntegrationTest {
 
     @Test
     void outerBlockStateRendererAddsExactlyOneRealWaterPass() throws IOException {
-        assertTrue(BlueMap522Adapter.install());
+        assertTrue(BlueMap523Adapter.install());
         BlockRendererType actual = BlockRendererType.REGISTRY.get(
-                BlueMap522Adapter.RENDERER_KEY);
+                BlueMap523Adapter.RENDERER_KEY);
         assertNotNull(actual);
 
         AtomicInteger potCalls = new AtomicInteger();

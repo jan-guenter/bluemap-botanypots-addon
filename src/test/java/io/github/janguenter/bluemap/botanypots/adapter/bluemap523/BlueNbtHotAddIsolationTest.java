@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: LGPL-2.1-only */
-package io.github.janguenter.bluemap.botanypots.adapter.bluemap522;
+package io.github.janguenter.bluemap.botanypots.adapter.bluemap523;
 
 import de.bluecolored.bluemap.core.world.BlockEntity;
 import de.bluecolored.bluemap.core.world.mca.MCAUtil;
@@ -29,7 +29,7 @@ class BlueNbtHotAddIsolationTest {
         // Snapshot the BlockEntity resolver before the Botany type exists.
         MCAUtil.BLUENBT.read(new ByteArrayInputStream(bytes.toByteArray()), BlockEntity.class);
 
-        assertTrue(BlueMap522Adapter.install());
-        assertFalse(BlueMap522Adapter.probeBlockEntityRetention());
+        assertTrue(BlueMap523Adapter.install());
+        assertFalse(BlueMap523Adapter.probeBlockEntityRetention());
     }
 }

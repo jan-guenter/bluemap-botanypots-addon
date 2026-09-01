@@ -1,16 +1,15 @@
 /*
  * SPDX-License-Identifier: LGPL-2.1-only
  */
-package io.github.janguenter.bluemap.botanypots.adapter.bluemap522;
+package io.github.janguenter.bluemap.botanypots.adapter.bluemap523;
 
+import de.bluecolored.bluemap.core.map.hires.block.BlockRendererType;
 import de.bluecolored.bluemap.core.resources.pack.resourcepack.ResourcePack;
 import de.bluecolored.bluemap.core.resources.pack.resourcepack.ResourcePackExtension;
-import de.bluecolored.bluemap.core.resources.pack.resourcepack.blockstate.Variant;
-import de.bluecolored.bluemap.core.resources.pack.resourcepack.blockstate.VariantSet;
-import de.bluecolored.bluemap.core.resources.pack.resourcepack.blockstate.Variants;
 import de.bluecolored.bluemap.core.util.Key;
 import de.bluecolored.bluemap.core.world.BlockProperties;
 import de.bluecolored.bluemap.core.world.BlockState;
+import io.github.janguenter.bluemap.addon.adapter.api.bluemap523.SyntheticDispatch;
 import io.github.janguenter.bluemap.botanypots.activation.BotanyPotsRuntime;
 import io.github.janguenter.bluemap.botanypots.catalog.NormalizedCatalog;
 import io.github.janguenter.bluemap.botanypots.catalog.TsvCatalogSource;
@@ -34,11 +33,17 @@ final class BotanyPotsResourceExtension implements ResourcePackExtension {
             "/bluemap-botanypots/profiles/atmons-1.2.0/catalog.tsv";
 
     private final ResourcePack resourcePack;
+    private final BlockRendererType renderer;
     private final BotanyPotsRuntime runtime;
     private RouteCatalog routes;
 
-    BotanyPotsResourceExtension(ResourcePack resourcePack, BotanyPotsRuntime runtime) {
+    BotanyPotsResourceExtension(
+            ResourcePack resourcePack,
+            BlockRendererType renderer,
+            BotanyPotsRuntime runtime
+    ) {
         this.resourcePack = resourcePack;
+        this.renderer = renderer;
         this.runtime = runtime;
     }
 
@@ -57,7 +62,7 @@ final class BotanyPotsResourceExtension implements ResourcePackExtension {
             inactiveAll("operator-disabled");
             return;
         }
-        if (!BlueMap522Adapter.probeBlockEntityRetention()) {
+        if (!BlueMap523Adapter.probeBlockEntityRetention()) {
             runtime.disableAll("bluenbt-retention-probe-failed");
             return;
         }
@@ -66,7 +71,9 @@ final class BotanyPotsResourceExtension implements ResourcePackExtension {
         RouteCatalog loadedRoutes = RouteCatalog.load();
         routes = loadedRoutes;
         if (complete.entries().isEmpty()
-                || !validDispatch(resourcePack.getBlockStates().get(SYNTHETIC))) {
+                || !SyntheticDispatch.matches(
+                        resourcePack.getBlockStates().get(SYNTHETIC), renderer
+                )) {
             inactiveAll("catalog-or-dispatch-invalid");
             return;
         }
@@ -144,21 +151,6 @@ final class BotanyPotsResourceExtension implements ResourcePackExtension {
     private void inactiveAll(String reason) {
         runtime.clearCatalog();
         BotanyPotsRuntime.PROFILE_IDS.forEach(profile -> runtime.route(profile).inactive(reason));
-    }
-
-    private static boolean validDispatch(
-            de.bluecolored.bluemap.core.resources.pack.resourcepack.blockstate.BlockState state
-    ) {
-        if (state == null || state.getMultipart() != null) {
-            return false;
-        }
-        Variants variants = state.getVariants();
-        if (variants == null || variants.getDefaultVariant() == null) {
-            return false;
-        }
-        VariantSet set = variants.getDefaultVariant();
-        return set.getVariants().length == 1
-                && BlueMap522Adapter.isExpectedDispatch(set.getVariants()[0]);
     }
 
 }
