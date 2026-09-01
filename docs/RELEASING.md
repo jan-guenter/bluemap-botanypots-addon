@@ -17,6 +17,15 @@
 No exporter, attestation ZIP, client override pack, or third-party asset is a
 release input for this bounded tranche.
 
+## 0.1.0-alpha.2 acceptance record
+
+On 2026-09-01, the owner accepted the Botany Pots area in the combined ATMons
+1.2.0 BlueMap 5.23 integration gallery. The migration changes the host adapter
+and shared-source ownership, not the bounded rendering contract. The exact
+accepted production JAR is 150,791 bytes with SHA-256
+`1dfa631f22eb65aa953d3f554d2b4c02e0fab000c1461903cad56b419d12d3c4`.
+The local clean release build reproduced those bytes exactly.
+
 ## 0.1.0-alpha.1 acceptance record
 
 On 2026-08-13, the owner visually accepted the bounded disposable-staging

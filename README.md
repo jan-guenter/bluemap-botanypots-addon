@@ -3,6 +3,10 @@
 Server-side BlueMap rendering for the exact All the Mons 1.2.0 Botany Pots
 shell family, plus two deliberately representative static-mature contents.
 
+Version `0.1.0-alpha.2` is the owner-accepted BlueMap 5.23 migration candidate.
+Its reviewed production JAR is 150,791 bytes with SHA-256
+`1dfa631f22eb65aa953d3f554d2b4c02e0fab000c1461903cad56b419d12d3c4`.
+
 The add-on owns all 183 `botanypots:*_botany_pot` block IDs and their 23,424
 legal `facing`/`level`/`waterlogged` states. It always renders the installed
 Botany Pots model first, preserving the basic, hopper, waxed, material, level,
@@ -24,8 +28,9 @@ client callback.
 
 - All the Mons `1.2.0`, pack commit `c7bb230f21d14d26859d0b92548f089b3a493ad9`
 - Minecraft `1.21.1`, NeoForge `21.1.248`, Java `21`
-- BlueMap backport `5.22-agent.backport-5.22-mc1.21.1-2`, commit
-  `9be321df995a1103808621d529eb72773e719d4d`
+- BlueMap feature backport `5.22-feature.backport-5.23-stateless-java-web-server-46`,
+  commit `7e07f4e74ec1e92a6ead9aa1e66054af3e133aac`, API commit
+  `285c9a60eff3ac2b0cab308ce1058d1565be0971`
 - Botany Pots `21.1.44`, 1,068,816-byte JAR, SHA-256
   `45b23ac195511f724f62ab5f0c2d7a1c2c2403ff324a7403a1142e28a7d65edd`
 
@@ -61,8 +66,15 @@ required by this bounded tranche.
 
 ## Development
 
-Use Java 21 and the exact workspace BlueMap checkout. The end-of-tranche local
-gate is:
+Clone with submodules, or initialize the toolkit and adapter API gitlinks in an
+existing checkout:
+
+```bash
+git submodule update --init --recursive -- \
+  tooling/bluemap-addon-toolkit modules/bluemap-addon-adapter-api
+```
+
+Use Java 21 and the exact workspace BlueMap checkout. The end-of-tranche local gate is:
 
 ```bash
 gradle --no-daemon -PbluemapSourcePath=../bluemap-backport focusedGate

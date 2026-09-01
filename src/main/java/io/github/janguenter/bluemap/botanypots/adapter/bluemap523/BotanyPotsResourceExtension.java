@@ -72,8 +72,7 @@ final class BotanyPotsResourceExtension implements ResourcePackExtension {
         routes = loadedRoutes;
         if (complete.entries().isEmpty()
                 || !SyntheticDispatch.matches(
-                        resourcePack.getBlockStates().get(SYNTHETIC), renderer
-                )) {
+                        resourcePack.getBlockStates().get(SYNTHETIC), renderer)) {
             inactiveAll("catalog-or-dispatch-invalid");
             return;
         }
