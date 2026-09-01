@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: LGPL-2.1-only */
-package io.github.janguenter.bluemap.botanypots.adapter.bluemap522;
+package io.github.janguenter.bluemap.botanypots.adapter.bluemap523;
 
 import de.bluecolored.bluemap.core.world.mca.MCAUtil;
 import de.bluecolored.bluenbt.BlueNBT;
@@ -69,8 +69,8 @@ class BotanyPotBlockEntityDataTest {
 
     @Test
     void sharedBlueNbtRetainsRegisteredBotanyDtoOnColdInstall() {
-        assertTrue(BlueMap522Adapter.install());
-        assertTrue(BlueMap522Adapter.probeBlockEntityRetention());
+        assertTrue(BlueMap523Adapter.install());
+        assertTrue(BlueMap523Adapter.probeBlockEntityRetention());
     }
 
     private static BotanyPotBlockEntityData read(byte[] nbt) throws IOException {

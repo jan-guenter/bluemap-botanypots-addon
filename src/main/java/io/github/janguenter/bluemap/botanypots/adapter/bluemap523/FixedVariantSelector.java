@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: LGPL-2.1-only
  */
-package io.github.janguenter.bluemap.botanypots.adapter.bluemap522;
+package io.github.janguenter.bluemap.botanypots.adapter.bluemap523;
 
 import de.bluecolored.bluemap.core.resources.pack.resourcepack.blockstate.Multipart;
 import de.bluecolored.bluemap.core.resources.pack.resourcepack.blockstate.Variant;

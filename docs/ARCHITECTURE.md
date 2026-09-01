@@ -7,7 +7,7 @@ The add-on has four bounded layers:
    synthetic BlueMap renderer while preserving the original state.
 3. A bounded NBT decoder retains only visual inventory slots 0 and 1, and a
    four-row catalog resolves only dirt+wheat or sand+cactus.
-4. The BlueMap 5.22 adapter renders the installed stock shell, then emits the
+4. The BlueMap 5.23 adapter renders the installed stock shell, then emits the
    selected installed-resource crop and soil overlays with seed 42 and the
    exact Botany display transforms.
 
@@ -24,3 +24,8 @@ for the normal waterlogged pass after the custom renderer returns.
 
 There is no runtime recipe scan, exporter, optional profile, external
 attestation, or client-only resource pack in this tranche.
+
+The adapter compiles exactly four MIT primitives from the commit- and
+source-tree-pinned Adapter API module. Runtime compatibility, collision-safe
+registration, extension construction, and synthetic-dispatch validation use
+those primitives. The standalone module JAR is not installed or nested.

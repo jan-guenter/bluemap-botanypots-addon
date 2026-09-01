@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "owner-accepted-release-candidate",
+  "version": "0.1.0-alpha.2",
+  "release_date": "2026-09-01",
+  "repository": "https://github.com/jan-guenter/bluemap-botanypots-addon",
+  "tag": "v0.1.0-alpha.2",
+  "maven_coordinate": "io.github.jan-guenter:bluemap-botanypots-addon:0.1.0-alpha.2",
+  "accepted_integration_artifact": {
+    "file_name": "bluemap-botanypots-addon-0.1.0-alpha.2.jar",
+    "size": 150791,
+    "sha256": "1dfa631f22eb65aa953d3f554d2b4c02e0fab000c1461903cad56b419d12d3c4",
+    "owner_visual_acceptance_date": "2026-09-01",
+    "local_clean_build_byte_exact": true
+  },
+  "adapter_api_migration": {
+    "module_repository": "https://github.com/jan-guenter/bluemap-addon-adapter-api",
+    "module_version": "0.1.0-alpha.2",
+    "module_tag": "v0.1.0-alpha.2",
+    "module_commit": "e81f08bc4bfbf02d810ec8949a019130e2e61634",
+    "module_source_tree": "2f974c9bb2ba13888d69682f86f30f58922d30eb",
+    "compiled_source_count": 4,
+    "standalone_module_jar_bundled": false
+  },
+  "host": {
+    "bluemap_version": "5.22-feature.backport-5.23-stateless-java-web-server-46",
+    "bluemap_commit": "7e07f4e74ec1e92a6ead9aa1e66054af3e133aac",
+    "bluemap_api_commit": "285c9a60eff3ac2b0cab308ce1058d1565be0971"
+  }
+}

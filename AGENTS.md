@@ -6,9 +6,13 @@ three files under `docs/` before changing it.
 
 ## Boundaries
 
-- Java 21, Minecraft 1.21.1, NeoForge 21.1.248, exact BlueMap 5.22 backport
-  commit `9be321df995a1103808621d529eb72773e719d4d`, and exact Botany Pots
-  21.1.44 artifact identity.
+- Java 21, Minecraft 1.21.1, NeoForge 21.1.248, exact BlueMap feature backport
+  commit `7e07f4e74ec1e92a6ead9aa1e66054af3e133aac`, API commit
+  `285c9a60eff3ac2b0cab308ce1058d1565be0971`, and exact Botany Pots 21.1.44
+  artifact identity.
+- Compile the four adapter primitives from the exact
+  `bluemap-addon-adapter-api` `0.1.0-alpha.2` gitlink. Never install or nest
+  its standalone JAR.
 - Own exactly the 183 `botanypots:*_botany_pot` IDs and 23,424 legal states.
 - Support exactly dirt+wheat seeds and sand+cactus. Unknown or other contents
   are stock-shell-only. Do not add a recipe exporter, broad catalog, optional

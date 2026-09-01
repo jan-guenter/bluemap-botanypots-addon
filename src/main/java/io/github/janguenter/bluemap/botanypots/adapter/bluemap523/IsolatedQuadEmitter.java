@@ -4,7 +4,7 @@
  * Face geometry and UV conventions are adapted from BlueMap 5.22's
  * MIT-licensed ResourceModelRenderer for the add-on's isolated display path.
  */
-package io.github.janguenter.bluemap.botanypots.adapter.bluemap522;
+package io.github.janguenter.bluemap.botanypots.adapter.bluemap523;
 
 import de.bluecolored.bluemap.core.map.TextureGallery;
 import de.bluecolored.bluemap.core.map.hires.RenderSettings;
